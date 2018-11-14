@@ -1,38 +1,31 @@
-CapistranoDeploy::Application.routes.draw do
+GnAgenda::Application.routes.draw do
 
-
+  resources :services
+  resources :notification_schedules
+  resources :clients
+  resources :notifications
+  resources :notes
+  resources :blocks
+  resources :look_times
+  resources :resources
+ 
   resources :kinesiologists
-
-  get "planyo/index"
-  get "admin/index"
-  get "admin/vta_origen_toxls"
-  get "admin/user_index"
-  get "admin/reset_pass"
-  get "admin/kine_yield"
-
-
-  get "telephony/index"
+  resources :centers
 
   root to: "home#index"
   get "home/index"
 
+
   match 'api/v1/sessions/login', to: 'api/v1/sessions#options', as: :sessions_login_options, via: :options
-  match 'api/v1/sessions/logout', to: 'api/v1/sessions#options', as: :sessions_logout_options, via: :options
-
-  resources :events
-
-  resources :comments
-  resources :plans
-  resources :owners
   devise_for :users
 
-  resources :centers do
+  resources :schedules do
     collection do
-      get :owners
-      post :newowner
-    end   
+      get :charge
+    end
   end
 
+  
   namespace :api, defaults: { format: 'json' } do
     namespace :v1 do
       resources :sessions do

@@ -1,0 +1,13 @@
+= simple_form_for(@look_time) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :hour
+    = f.input :day
+    = f.input :from
+    = f.input :to
+    = f.association :center
+    = f.association :resource
+
+  .form-actions
+    = f.button :submit

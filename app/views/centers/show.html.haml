@@ -1,43 +1,45 @@
-%br
-%br
-.container{:role => "main"}
-  .col-md-12
-    .panel.panel-default
-      .panel-heading
-      .panel-body
-        %h2 Centro
-        .row
-          .col-md-12 
-          
-            %p#notice= notice
+%p#notice= notice
 
-            %h3
-              Centro:
-              = @center.id_centro
-              %br
-              = @center.nombre_centro
-              %br
-            %p  
-              = @center.dir_centro
-              %br
-              = @center.sector_centro 
-              %br
-              = @center.comuna_centro 
-              %br
-              = @center.rut_centro 
-              %br
-              = @center.web 
-              %br
-              = @center.email
-              %br
-              = @center.telefonos
-              %br
-              = @center.anexo 
-              %br
-              = @center.plan
-              %br
-              = @center.status
-              %br
-              %br
-              %br
-              = link_to 'Volver', centers_path,:class => "btn btn-warning"
+%p
+  %b Id centro:
+  = @center.id_centro
+%p
+  %b Id propietario:
+  = @center.id_propietario
+%p
+  %b Nombre centro:
+  = @center.nombre_centro
+%p
+  %b Dir centro:
+  = @center.dir_centro
+%p
+  %b Sector centro:
+  = @center.sector_centro
+%p
+  %b Comuna centro:
+  = @center.comuna_centro
+%p
+  %b Rut centro:
+  = @center.rut_centro
+%p
+  %b Web:
+  = @center.web
+%p
+  %b Email:
+  = @center.email
+%p
+  %b Telefonos:
+  = @center.telefonos
+%p
+  %b Anexo:
+  = @center.anexo
+%p
+  %b Plan:
+  = @center.plan
+%p
+  %b Status:
+  = @center.status
+
+= link_to 'Edit', edit_center_path(@center)
+\|
+= link_to 'Back', centers_path

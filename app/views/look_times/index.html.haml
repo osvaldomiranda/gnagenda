@@ -1,0 +1,38 @@
+.container{:role => "main"}
+  .col-md-12
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title Horarios Bloqueados
+      .panel-body
+
+        %h1 Horarios Bloqueados
+
+        %table.table.table-striped
+          %thead
+            %tr
+              %th Hour
+              %th Day
+              %th From
+              %th To
+              %th Center
+              %th Resource
+              %th
+              %th
+              %th
+
+          %tbody
+            - @look_times.each do |look_time|
+              %tr
+                %td= look_time.hour
+                %td= look_time.day
+                %td= look_time.from
+                %td= look_time.to
+                %td= look_time.center
+                %td= look_time.resource
+                %td= link_to 'Show', look_time
+                %td= link_to 'Edit', edit_look_time_path(look_time)
+                %td= link_to 'Destroy', look_time, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+        %br
+
+        = link_to 'New Look time', new_look_time_path

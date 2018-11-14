@@ -1,0 +1,1 @@
+json.extract! @center, :id, :id_centro, :id_propietario, :nombre_centro, :dir_centro, :sector_centro, :comuna_centro, :rut_centro, :web, :email, :telefonos, :anexo, :plan, :status, :created_at, :updated_at

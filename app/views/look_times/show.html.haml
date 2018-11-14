@@ -1,0 +1,24 @@
+%p#notice= notice
+
+%p
+  %b Hour:
+  = @look_time.hour
+%p
+  %b Day:
+  = @look_time.day
+%p
+  %b From:
+  = @look_time.from
+%p
+  %b To:
+  = @look_time.to
+%p
+  %b Center:
+  = @look_time.center
+%p
+  %b Resource:
+  = @look_time.resource
+
+= link_to 'Edit', edit_look_time_path(@look_time)
+\|
+= link_to 'Back', look_times_path

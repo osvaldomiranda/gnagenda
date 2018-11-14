@@ -1,0 +1,45 @@
+.container{:role => "main"}
+  .col-md-12
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title Clientes
+      .panel-body
+        %h1 Clientes
+
+        %table.table.table-striped
+          %thead
+            %tr
+              %th Rut
+              %th First name
+              %th Last name
+              %th Email
+              %th Celphone
+              %th Age
+              %th Gender
+              %th Citizenship
+              %th Origin
+              %th State
+              %th
+              %th
+              %th
+
+          %tbody
+            - @clients.each do |client|
+              %tr
+                %td= client.rut
+                %td= client.first_name
+                %td= client.last_name
+                %td= client.email
+                %td= client.celphone
+                %td= client.age
+                %td= client.gender
+                %td= client.citizenship
+                %td= client.origin
+                %td= client.state
+                %td= link_to 'Show', client
+                %td= link_to 'Edit', edit_client_path(client)
+                %td= link_to 'Destroy', client, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+        %br
+
+        = link_to 'New Client', new_client_path

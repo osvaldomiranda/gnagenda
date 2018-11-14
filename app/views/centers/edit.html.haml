@@ -1,12 +1,7 @@
-%br
-%br
-.container{:role => "main"}
-  .col-md-12
-    .panel.panel-default
-      .panel-heading
-      .panel-body
-        %h2 Centros
-        .row
-          .col-md-12 
+%h1 Editing center
 
-            = render 'form'
+= render 'form'
+
+= link_to 'Show', @center
+\|
+= link_to 'Back', centers_path

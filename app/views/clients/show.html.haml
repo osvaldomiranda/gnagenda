@@ -1,0 +1,36 @@
+%p#notice= notice
+
+%p
+  %b Rut:
+  = @client.rut
+%p
+  %b First name:
+  = @client.first_name
+%p
+  %b Last name:
+  = @client.last_name
+%p
+  %b Email:
+  = @client.email
+%p
+  %b Celphone:
+  = @client.celphone
+%p
+  %b Age:
+  = @client.age
+%p
+  %b Gender:
+  = @client.gender
+%p
+  %b Citizenship:
+  = @client.citizenship
+%p
+  %b Origin:
+  = @client.origin
+%p
+  %b State:
+  = @client.state
+
+= link_to 'Edit', edit_client_path(@client)
+\|
+= link_to 'Back', clients_path

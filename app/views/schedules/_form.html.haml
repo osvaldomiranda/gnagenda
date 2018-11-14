@@ -1,0 +1,170 @@
+.container{:role => "main"}
+  .col-md-12
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title Agenda
+      .panel-body
+        .scroll-panel     
+          .row
+            .col-md-4
+              %h3 Mes
+            .col-md-4
+              = image_tag("planyo_status.png")
+
+          .row
+            %h3
+              .col-md-4
+              .col-md-1.text-center
+                / = link_to "<<", schedules_path(center: @id_centro, date: @date.prev_month)
+              .col-md-2.text-center  
+                = @date.strftime('%m-%Y')
+              .col-md-1.text-center  
+                / = link_to ">>", schedules_path(center: @id_centro, date: @date.next_month)
+                  
+          .row
+            .col-md-12 
+              %table.table.table-responsive
+                %thead
+                  %tr
+                    %th
+                    - (1..LookTime.days_in_month(@date.strftime("%m").to_i,@date.strftime("%Y").to_i)).each do |dia|
+                      %th= LookTime.day_name(Date.parse("#{@date.strftime('%Y-%m')}-#{dia}"))  
+                  %tr
+                    %th
+                    - (1..LookTime.days_in_month(@date.strftime("%m").to_i,@date.strftime("%Y").to_i)).each do |dia|
+                      %td= dia                 
+                %tbody
+                  - @tipos.each do |tipo|
+                    %tr          
+                      %td= tipo.name
+                      - (1..LookTime.days_in_month(@date.strftime("%m").to_i,@date.strftime("%Y").to_i)).each do |dia|
+                        - if Schedule.reservado(@id_centro, tipo.name, Date.parse("#{@date.strftime('%Y-%m')}-#{dia}"))
+                          %td= image_tag("reservado.png")
+                        - else
+                          %td= image_tag("disponible.png")
+          %rb
+          %rb
+          %hr 
+          .row
+            .col-md-12 
+              %h3 Dia
+            %h3
+              .col-md-4
+              .col-md-1.text-center
+                / = link_to "<<", schedules_path(center: @id_centro, date: @date.prev_day)
+              .col-md-2.text-center  
+                = @date.strftime('%d-%m-%Y')
+              .col-md-1.text-center  
+                / = link_to ">>", schedules_path(center: @id_centro, date: @date.next_day)
+          .row
+            .col-md-12 
+              %table.table-sm.table-responsive
+                %thead
+                  %tr
+                    %th
+                    - LookTime.hours_in_day.each do |dia| 
+                      - if dia.strftime("%M") == "00" 
+                        %td= "#{dia.strftime("%I")}" 
+                      - else
+                        %td 
+                  %tr
+                    %th    
+                    - LookTime.hours_in_day.each do |dia|  
+                      %td= "#{dia.strftime("%M")}"       
+                %tbody
+                  - @tipos.each do |tipo|
+                    %tr  
+                      %td= tipo.name
+                      - LookTime.hours_in_day.each do |hora|
+                        - if Schedule.reservado_hora(@id_centro, tipo.name, "#{@date.strftime('%Y-%m-%d')} #{hora.strftime('%I:%M')}")
+                          %td= image_tag("reservado.png")
+                        - else
+                          %td= image_tag("disponible.png")
+
+          %br
+          %br
+          %br                
+          = simple_form_for(@schedule) do |f|
+            = f.error_notification
+
+            .form-inputs
+              = f.input :id_centro, as: :hidden
+              = f.input :rol, as: :hidden
+              = f.input :status, as: :hidden
+              = f.input :creation_time, as: :hidden
+              = f.input :quantity, as: :hidden
+              .form-inline
+                %h3 Detalles de la Reserva
+                %br    
+                .row
+                  .col-md-4.text-center
+                  
+                    = f.input :name, label:false, prompt: 'Recurso *', collection: Service.for_select, :input_html => {:style=> 'width: 180px'}
+                %br   
+                .row
+                  .col-md-4.text-center
+                    = f.input :fecha, label:false, placeholder: 'Fecha *' 
+                %br    
+                .row
+                  .col-md-4.text-center
+                    = f.input :hora, label:false, prompt: 'Hora *', collection: Service.hora_for_select, :input_html => {:style=> 'width: 180px'} 
+                %br       
+                .row
+                  .col-md-4.text-center
+                    = f.input :duration, label:false, prompt: 'Duración *', collection: Service.duration_for_select, :input_html => {:style=> 'width: 180px'} 
+                %br       
+                .row
+                  .col-md-4.text-center
+                    = f.input :reminder, label:false, prompt: 'Recordatorio', collection: Service.reminder_for_select, :input_html => {:style=> 'width: 180px'}
+
+                    = f.input :end_time, as: :hidden
+              %br  
+              %br     
+              .form-inline
+                %h3 Datos personales 
+                %br                  
+                .row
+                  .col-md-4.text-center
+                    = f.input :rut, label:false, placeholder: 'Rut *'
+                %br                  
+                .row
+                  .col-md-4.text-center
+                    = f.input :first_name, label:false, placeholder: 'Nombres *'
+                %br
+                .row
+                  .col-md-4.text-center
+                    = f.input :last_name, label:false, placeholder: 'Apellidos *'
+                %br
+                .row
+                  .col-md-4.text-center
+                    = f.input :age, label:false, prompt: 'Edad', collection: Schedule.age_for_select, :input_html => {:style=> 'width: 190px'}
+                %br
+                .row
+                  .col-md-4.text-center
+                    = f.input :gender, label:false, prompt: 'Genero', collection: Schedule.gender_for_select, :input_html => {:style=> 'width: 190px'}
+                %br
+                .row
+                  .col-md-4.text-center
+                    = f.input :nationality, label:false, placeholder: 'Nacionalidad'
+                %br
+                .row
+                  .col-md-4.text-center
+                    = f.input :origin, label:false, prompt: 'Como nos conoció', collection: Schedule.origin_for_select, :input_html => {:style=> 'width: 190px'}
+                %br
+                .row
+                  .col-md-4.text-center
+                    = f.input :email, label:false, placeholder: 'Correo Electrónico *'
+                %br
+                .row
+                  .col-md-4.text-center
+                    = f.input :mobile_number, label:false, placeholder: 'Nro Celular *'
+                %br
+                .row
+                  .col-md-4.text-center
+                    = f.input :state, label:false, placeholder: 'Comuna'
+            %br
+            %br        
+            .form-actions
+              = f.button :submit, 'Hacer una Reserva', class: "btn btn-primary" 
+
+          %p * - campo requerido

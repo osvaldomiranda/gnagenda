@@ -1,0 +1,10 @@
+= simple_form_for(@notification_schedule) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :receiver
+    = f.input :means
+    = f.association :notification
+
+  .form-actions
+    = f.button :submit

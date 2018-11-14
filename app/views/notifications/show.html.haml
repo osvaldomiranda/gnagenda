@@ -1,0 +1,24 @@
+%p#notice= notice
+
+%p
+  %b Body:
+  = @notification.body
+%p
+  %b Body textmsg:
+  = @notification.body_textmsg
+%p
+  %b Event:
+  = @notification.event
+%p
+  %b Delay:
+  = @notification.delay
+%p
+  %b Previous:
+  = @notification.previous
+%p
+  %b Center:
+  = @notification.center
+
+= link_to 'Edit', edit_notification_path(@notification)
+\|
+= link_to 'Back', notifications_path

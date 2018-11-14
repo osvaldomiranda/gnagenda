@@ -31,76 +31,69 @@
  
 
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ventas <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li>
-              <%= link_to home_index_path  do %>
-                <span class="iconos"><i class="fa fa-user fa-fw"></i></span>Reporte de Ventas
-              <% end %>
-            </li>           
-          </ul>
-        </li>
-
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Telefonía <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li>
-              <%= link_to telephony_index_path  do %>
-                <span class="iconos"><i class="fa fa-user fa-fw"></i></span>Telefonía
-              <% end %>
-            </li>           
-          </ul>
-        </li>
-        <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Agenda <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li>
-              <%= link_to planyo_index_path  do %>
-                <span class="iconos"><i class="fa fa-user fa-fw"></i></span>Agenda
+              <%= link_to schedules_path  do %>
+                <span class="iconos"><i class="fa fa-user fa-fw"></i></span>Interfaz de programación
               <% end %>
-            </li>           
+            </li>          
           </ul>
-        </li>        
-        
-        <% if current_user.role?("admin") %>
+        </li>
+
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li>
-              <%= link_to admin_index_path  do %>
-                <span class="iconos"><i class="fa fa-user fa-fw"></i></span>Informes Detalle
-              <% end %>
-            </li>         
-            <li>
               <%= link_to centers_path  do %>
                 <span class="iconos"><i class="fa fa-user fa-fw"></i></span>Centros
               <% end %>
-            </li>
-            <li>
-              <%= link_to owners_path  do %>
-                <span class="iconos"><i class="fa fa-user fa-fw"></i></span>Propietarios
-              <% end %>
-            </li>
-            <li>
+            </li>  
+          <li>
               <%= link_to kinesiologists_path  do %>
-                <span class="iconos"><i class="fa fa-user fa-fw"></i></span>Horas Kine
+                <span class="iconos"><i class="fa fa-user fa-fw"></i></span>Kines
               <% end %>
-            </li>   
-            <li>
-              <%= link_to admin_kine_yield_path  do %>
-                <span class="iconos"><i class="fa fa-user fa-fw"></i></span>Productividad Kine
+            </li>          
+        
+          <li>
+              <%= link_to services_path  do %>
+                <span class="iconos"><i class="fa fa-user fa-fw"></i></span>Servicios
               <% end %>
-            </li> 
-            <li>
-              <%= link_to admin_user_index_path  do %>
-                <span class="iconos"><i class="fa fa-user fa-fw"></i></span>Usuarios
+            </li>          
+         
+          <li>
+              <%= link_to resources_path  do %>
+                <span class="iconos"><i class="fa fa-user fa-fw"></i></span>Servicios Centro
               <% end %>
-            </li>   
-
-                        
+            </li>          
+        
+          <li>
+              <%= link_to look_times_path  do %>
+                <span class="iconos"><i class="fa fa-user fa-fw"></i></span>Bloqueos
+              <% end %>
+            </li>          
+          
+          <li>
+              <%= link_to notifications_path  do %>
+                <span class="iconos"><i class="fa fa-user fa-fw"></i></span>Notificaciones
+              <% end %>
+            </li>          
           </ul>
-        </li> 
-        <% end %>    
+        </li>
+
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li>
+              <%= link_to home_index_path  do %>
+                <span class="iconos"><i class="fa fa-user fa-fw"></i></span>Reporte de agendamientos
+              <% end %>
+            </li>            
+          </ul>
+        </li>
+      
+        
+ 
       </ul>
 
 

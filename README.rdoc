@@ -109,9 +109,9 @@ So when we say "In the VPS, execute: " then you must connect to the server by us
 To make this recipes in your own project, you need to copy the following files in the same 
 folders:
 
-capistrano_deploy/Capfile
-capistrano_deploy/config/deploy.rb
-capistrano_deploy/recipes/*
+gn_agenda/Capfile
+gn_agenda/config/deploy.rb
+gn_agenda/recipes/*
 
 And add the following lines to your Gemfile:
 
@@ -137,12 +137,12 @@ end
 </code>
 
 == Fresh start
-If you want to make a new rails project, I recommend to clone this repository and replace the words "capistrano_deploy" and "CapistranoDeploy" with the name of your project.
+If you want to make a new rails project, I recommend to clone this repository and replace the words "gn_agenda" and "GnAgenda" with the name of your project.
 
 For instance if the name of your project is MyRailsApp, then you should do the following replacements:
 
-capistrano_deploy -> my_rails_app
-CapistranoDeploy  -> MyRailsApp
+gn_agenda -> my_rails_app
+GnAgenda  -> MyRailsApp
 
 Make sure to make a case sensitive replacement
 

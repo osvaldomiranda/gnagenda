@@ -1,0 +1,31 @@
+.container{:role => "main"}
+  .col-md-12
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title Notificaciones Enviadas
+      .panel-body
+        %h1 Notificaciones Enviadas
+
+        %table.table.table-striped
+          %thead
+            %tr
+              %th Receiver
+              %th Means
+              %th Notification
+              %th
+              %th
+              %th
+
+          %tbody
+            - @notification_schedules.each do |notification_schedule|
+              %tr
+                %td= notification_schedule.receiver
+                %td= notification_schedule.means
+                %td= notification_schedule.notification
+                %td= link_to 'Show', notification_schedule
+                %td= link_to 'Edit', edit_notification_schedule_path(notification_schedule)
+                %td= link_to 'Destroy', notification_schedule, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+        %br
+
+        = link_to 'New Notification schedule', new_notification_schedule_path

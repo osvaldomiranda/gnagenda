@@ -1,0 +1,9 @@
+= simple_form_for(@block) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :duration
+    = f.input :zone
+
+  .form-actions
+    = f.button :submit

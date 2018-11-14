@@ -1,46 +1,31 @@
-%br
-%br
 .container{:role => "main"}
   .col-md-12
     .panel.panel-default
       .panel-heading
+        %h3.panel-title Kines
       .panel-body
-        %h2 
-          Kines
-          %span.badge= @kinesiologists.count
-        %h1= @nombre_centro  
+        %h1 Kines
 
-        .row
-          %br  
-          .col-md-4.text-center
-            .form-inline
-              = label_tag :filter_center, "CENTRO"
-              = select_tag :filter_center, options_for_select(OwnerProp.for_select(current_user.id), @id_centro), prompt: "Todos",class: "form-control" 
-        %rb
-        %rb
-        %hr      
-        .row
-          .col-md-12 
-            %table.table.table-striped
-              %thead
-                %tr
-                  %th Centro
-                  %th Nombre
-                  %th HH Mensuales
-                  %th
-                  %th
-                  %th
+        %table.table.table-striped
+          %thead
+            %tr
+              %th Id centro
+              %th Nombre
+              %th Hh mensuales
+              %th
+              %th
+              %th
 
-              %tbody
-                - @kinesiologists.each do |kinesiologist|
-                  %tr
-                    %td= Center.where(id_centro: kinesiologist.id_centro).first.nombre_centro
-                    %td= kinesiologist.nombre
-                    %td= kinesiologist.hh_mensuales
-                    %td= link_to 'Mostrar', kinesiologist
-                    %td= link_to 'Editar', edit_kinesiologist_path(kinesiologist)
-                    %td= link_to 'Eliminar', kinesiologist, :method => :delete, :data => { :confirm => 'Esta Seguro?' }
+          %tbody
+            - @kinesiologists.each do |kinesiologist|
+              %tr
+                %td= kinesiologist.id_centro
+                %td= kinesiologist.nombre
+                %td= kinesiologist.hh_mensuales
+                %td= link_to 'Show', kinesiologist
+                %td= link_to 'Edit', edit_kinesiologist_path(kinesiologist)
+                %td= link_to 'Destroy', kinesiologist, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
-            %br
+        %br
 
-            = link_to 'Agregar Kine', new_kinesiologist_path,:class => "btn btn-warning"
+        = link_to 'New Kinesiologist', new_kinesiologist_path

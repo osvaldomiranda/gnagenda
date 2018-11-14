@@ -11,122 +11,49 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180912160028) do
+ActiveRecord::Schema.define(version: 20181114155608) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "agenda", id: false, force: true do |t|
-    t.integer  "id_centro",                       null: false
-    t.string   "rol",                 limit: 30
-    t.integer  "reservation_id",      limit: 8
-    t.string   "status",              limit: 30
-    t.datetime "creation_time"
-    t.integer  "quantity"
-    t.datetime "start_time"
-    t.datetime "end_time"
-    t.string   "user_notes",          limit: 300
-    t.string   "custom_color",        limit: 30
-    t.string   "night_reservation",   limit: 30
-    t.string   "currency",            limit: 30
-    t.string   "first_name",          limit: 80
-    t.string   "last_name",           limit: 30
-    t.string   "login",               limit: 30
-    t.string   "user_id",             limit: 30
-    t.string   "email",               limit: 50
-    t.string   "mobile_number",       limit: 30
-    t.string   "mobile_country_code", limit: 5
-    t.string   "phone",               limit: 30
-    t.string   "phone_country_code",  limit: 30
-    t.string   "zip",                 limit: 30
-    t.string   "country",             limit: 30
-    t.string   "address",             limit: 30
-    t.string   "state",               limit: 30
-    t.string   "city",                limit: 30
-    t.string   "resource_id",         limit: 30
-    t.string   "name",                limit: 30
-  end
-
-  add_index "agenda", ["creation_time"], name: "index_agenda", unique: true, using: :btree
-
-  create_table "agenda_stg", id: false, force: true do |t|
-    t.integer  "reservation_id",      limit: 8
-    t.string   "status",              limit: 300
-    t.datetime "creation_time"
-    t.integer  "quantity"
-    t.datetime "start_time"
-    t.datetime "end_time"
-    t.string   "user_notes",          limit: 3000
-    t.string   "custom_color",        limit: 300
-    t.string   "night_reservation",   limit: 300
-    t.string   "currency",            limit: 300
-    t.string   "first_name",          limit: 80
-    t.string   "last_name",           limit: 300
-    t.string   "login",               limit: 300
-    t.string   "user_id",             limit: 300
-    t.string   "email",               limit: 50
-    t.string   "mobile_number",       limit: 300
-    t.string   "mobile_country_code", limit: 50
-    t.string   "phone",               limit: 300
-    t.string   "phone_country_code",  limit: 300
-    t.string   "zip",                 limit: 300
-    t.string   "country",             limit: 300
-    t.string   "address",             limit: 300
-    t.string   "state",               limit: 300
-    t.string   "city",                limit: 300
-    t.string   "resource_id",         limit: 300
-    t.string   "name",                limit: 300
-  end
-
-  add_index "agenda_stg", ["creation_time"], name: "index_agenda_stg", unique: true, using: :btree
-
-  create_table "centros", id: false, force: true do |t|
-    t.integer "id_centro",      limit: 8,   null: false
-    t.integer "id_propietario", limit: 8,   null: false
-    t.text    "nombre_centro",              null: false
-    t.string  "dir_centro",     limit: 120
-    t.string  "sector_centro",  limit: 120
-    t.string  "comuna_centro",  limit: 50
-    t.string  "rut_centro",     limit: 25
-    t.string  "web",            limit: 80
-    t.string  "email",          limit: 50
-    t.string  "telefonos",      limit: 120
-    t.string  "anexo",          limit: 20
-    t.string  "plan",           limit: 80
-    t.string  "status",         limit: 5
-  end
-
-  create_table "centros_planyo", id: false, force: true do |t|
-    t.integer "id_centro", limit: 8,   null: false
-    t.string  "usuario",   limit: 30
-    t.string  "clave",     limit: 20
-    t.string  "apikey",    limit: 120
-  end
-
-  create_table "centros_prop", id: false, force: true do |t|
-    t.integer "id_centro",      limit: 8,  null: false
-    t.integer "id_propietario", limit: 8,  null: false
-    t.string  "email",          limit: 80
-    t.string  "status",         limit: 5
-  end
-
-  create_table "comments", force: true do |t|
-    t.integer  "center_id"
-    t.text     "coment"
+  create_table "blocks", force: true do |t|
+    t.integer  "duration"
+    t.string   "zone"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "events", force: true do |t|
-    t.string   "title"
-    t.date     "start"
-    t.date     "end"
+  create_table "centers", force: true do |t|
+    t.integer  "id_centro"
+    t.integer  "id_propietario"
+    t.text     "nombre_centro"
+    t.string   "dir_centro"
+    t.string   "sector_centro"
+    t.string   "comuna_centro"
+    t.string   "rut_centro"
+    t.string   "web"
+    t.string   "email"
+    t.string   "telefonos"
+    t.string   "anexo"
+    t.string   "plan"
+    t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "hora_act", id: false, force: true do |t|
-    t.string "hora", limit: 50, null: false
+  create_table "clients", force: true do |t|
+    t.string   "rut"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email"
+    t.string   "celphone"
+    t.integer  "age"
+    t.string   "gender"
+    t.string   "citizenship"
+    t.string   "origin"
+    t.string   "state"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "kinesiologists", force: true do |t|
@@ -137,822 +64,114 @@ ActiveRecord::Schema.define(version: 20180912160028) do
     t.datetime "updated_at"
   end
 
-  create_table "owner_centers", force: true do |t|
-    t.integer  "user_id"
-    t.string   "rut_centro"
+  create_table "look_times", force: true do |t|
+    t.integer  "hour"
+    t.integer  "day"
+    t.date     "from"
+    t.date     "to"
+    t.integer  "center_id"
+    t.integer  "resource_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name_center"
-    t.integer  "id_centro"
   end
 
-  add_index "owner_centers", ["user_id"], name: "index_owner_centers_on_user_id", using: :btree
+  add_index "look_times", ["center_id"], name: "index_look_times_on_center_id", using: :btree
+  add_index "look_times", ["resource_id"], name: "index_look_times_on_resource_id", using: :btree
 
-  create_table "plans", force: true do |t|
+  create_table "notes", force: true do |t|
+    t.string   "body"
+    t.integer  "schedule_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "notes", ["schedule_id"], name: "index_notes_on_schedule_id", using: :btree
+
+  create_table "notification_schedules", force: true do |t|
+    t.string   "receiver"
+    t.string   "means"
+    t.integer  "notification_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "schedule_id"
+  end
+
+  add_index "notification_schedules", ["notification_id"], name: "index_notification_schedules_on_notification_id", using: :btree
+  add_index "notification_schedules", ["schedule_id"], name: "index_notification_schedules_on_schedule_id", using: :btree
+
+  create_table "notifications", force: true do |t|
+    t.string   "body"
+    t.string   "body_textmsg"
+    t.string   "event"
+    t.integer  "delay"
+    t.integer  "previous"
+    t.integer  "center_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "notifications", ["center_id"], name: "index_notifications_on_center_id", using: :btree
+
+  create_table "resources", force: true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "center_id"
+    t.integer  "service_id"
+  end
+
+  add_index "resources", ["center_id"], name: "index_resources_on_center_id", using: :btree
+  add_index "resources", ["service_id"], name: "index_resources_on_service_id", using: :btree
+
+  create_table "schedules", force: true do |t|
+    t.integer  "id_centro"
+    t.string   "rol"
+    t.integer  "reservation_id"
+    t.string   "status"
+    t.datetime "creation_time"
+    t.integer  "quantity"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.text     "user_notes"
+    t.string   "custom_color"
+    t.string   "night_reservation"
+    t.string   "currency"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "login"
+    t.string   "user_id"
+    t.string   "email"
+    t.string   "mobile_number"
+    t.string   "mobile_country_code"
+    t.string   "phone"
+    t.string   "phone_country_code"
+    t.string   "zip"
+    t.string   "country"
+    t.string   "address"
+    t.string   "state"
+    t.string   "city"
+    t.string   "resource_id"
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "nameresource"
+    t.date     "fecha"
+    t.string   "hora"
+    t.string   "duration"
+    t.string   "reminder"
+    t.string   "age"
+    t.string   "gender"
+    t.string   "nationality"
+    t.string   "origin"
+    t.string   "rut"
   end
 
-  create_table "pos_order", id: false, force: true do |t|
-    t.integer  "id_centro",                   null: false
-    t.integer  "id",                          null: false
-    t.datetime "create_date"
-    t.integer  "sale_journal"
-    t.string   "pos_reference",   limit: nil
-    t.integer  "write_uid"
-    t.integer  "account_move"
-    t.datetime "date_order"
-    t.integer  "location_id"
-    t.integer  "nb_print"
-    t.integer  "create_uid"
-    t.integer  "user_id"
-    t.integer  "partner_id"
-    t.integer  "company_id",                  null: false
-    t.text     "note"
-    t.string   "state",           limit: nil
-    t.integer  "pricelist_id",                null: false
-    t.datetime "write_date"
-    t.string   "name",            limit: nil, null: false
-    t.integer  "invoice_id"
-    t.integer  "session_id"
-    t.integer  "picking_id"
-    t.integer  "sequence_number"
-    t.string   "customer_email",  limit: nil
-  end
-
-  add_index "pos_order", ["date_order"], name: "pos_order_date_order_index", using: :btree
-  add_index "pos_order", ["id_centro"], name: "pos_order_id_centro", using: :btree
-  add_index "pos_order", ["partner_id"], name: "pos_order_partner_id_index", using: :btree
-  add_index "pos_order", ["session_id"], name: "pos_order_session_id_index", using: :btree
-
-  create_table "pos_order_line", id: false, force: true do |t|
-    t.integer  "id_centro",                       null: false
-    t.integer  "id"
-    t.integer  "create_uid"
-    t.string   "notice",              limit: nil
-    t.datetime "create_date"
-    t.string   "name",                limit: nil, null: false
-    t.integer  "order_id"
-    t.decimal  "price_unit"
-    t.decimal  "price_subtotal"
-    t.integer  "company_id",                      null: false
-    t.decimal  "price_subtotal_incl"
-    t.decimal  "qty"
-    t.decimal  "discount"
-    t.datetime "write_date"
-    t.integer  "write_uid"
-    t.integer  "product_id",                      null: false
-    t.text     "comments"
-    t.text     "order_line_note"
-  end
-
-  create_table "product_product", id: false, force: true do |t|
-    t.integer  "id_centro",                     null: false
-    t.integer  "id",                            null: false
-    t.string   "ean13",             limit: 13
-    t.datetime "create_date"
-    t.string   "default_code",      limit: nil
-    t.string   "name_template",     limit: nil
-    t.integer  "create_uid"
-    t.datetime "message_last_post"
-    t.integer  "product_tmpl_id",               null: false
-    t.binary   "image_variant"
-    t.integer  "write_uid"
-    t.datetime "write_date"
-    t.boolean  "active"
-  end
-
-  add_index "product_product", ["default_code"], name: "product_product_default_code_index", using: :btree
-  add_index "product_product", ["id_centro"], name: "product_id_centro_index", using: :btree
-  add_index "product_product", ["name_template"], name: "product_product_name_template_index", using: :btree
-  add_index "product_product", ["product_tmpl_id"], name: "product_product_product_tmpl_id_index", using: :btree
-
-  create_table "propietario", id: false, force: true do |t|
-    t.integer "id_propietario",     limit: 8,   null: false
-    t.string  "nombre_propietario", limit: 120
-    t.string  "rut_propietario",    limit: 15
-    t.string  "dir_propietario",    limit: 120
-    t.string  "email",              limit: 80
-  end
-
-  create_table "res_partner", id: false, force: true do |t|
-    t.integer  "id_centro",                            null: false
-    t.integer  "id",                                   null: false
-    t.string   "name",                     limit: nil, null: false
-    t.integer  "company_id"
-    t.text     "comment"
-    t.string   "ean13",                    limit: 13
-    t.datetime "create_date"
-    t.integer  "color"
-    t.binary   "image_small"
-    t.binary   "image"
-    t.date     "date"
-    t.string   "street",                   limit: nil
-    t.string   "city",                     limit: nil
-    t.string   "display_name",             limit: nil
-    t.string   "zip",                      limit: 24
-    t.integer  "title"
-    t.string   "function",                 limit: nil
-    t.integer  "country_id"
-    t.integer  "parent_id"
-    t.boolean  "supplier"
-    t.string   "ref",                      limit: nil
-    t.string   "email",                    limit: nil
-    t.boolean  "is_company"
-    t.string   "website",                  limit: nil
-    t.boolean  "customer"
-    t.string   "fax",                      limit: nil
-    t.string   "street2",                  limit: nil
-    t.boolean  "employee"
-    t.float    "credit_limit"
-    t.datetime "write_date"
-    t.boolean  "active"
-    t.string   "tz",                       limit: 64
-    t.integer  "write_uid"
-    t.string   "lang",                     limit: nil
-    t.integer  "create_uid"
-    t.binary   "image_medium"
-    t.string   "phone",                    limit: nil
-    t.string   "mobile",                   limit: nil
-    t.string   "type",                     limit: nil
-    t.boolean  "use_parent_address"
-    t.integer  "user_id"
-    t.string   "birthdate",                limit: nil
-    t.string   "vat",                      limit: nil
-    t.integer  "state_id"
-    t.integer  "commercial_partner_id"
-    t.string   "notify_email",             limit: nil, null: false
-    t.datetime "message_last_post"
-    t.boolean  "opt_out"
-    t.integer  "section_id"
-    t.string   "signup_type",              limit: nil
-    t.datetime "signup_expiration"
-    t.string   "signup_token",             limit: nil
-    t.datetime "calendar_last_notif_ack"
-    t.datetime "last_reconciliation_date"
-    t.float    "debit_limit"
-    t.boolean  "vat_subjected"
-    t.boolean  "prefer_ereceipt"
-  end
-
-  add_index "res_partner", ["company_id"], name: "res_partner_company_id_index", using: :btree
-  add_index "res_partner", ["date"], name: "res_partner_date_index", using: :btree
-  add_index "res_partner", ["display_name"], name: "res_partner_display_name_index", using: :btree
-  add_index "res_partner", ["id_centro"], name: "res_partner_id_centro_index", using: :btree
-  add_index "res_partner", ["name"], name: "res_partner_name_index", using: :btree
-  add_index "res_partner", ["parent_id"], name: "res_partner_parent_id_index", using: :btree
-  add_index "res_partner", ["ref"], name: "res_partner_ref_index", using: :btree
-
-  create_table "res_users", id: false, force: true do |t|
-    t.integer  "id_centro",                                                null: false
-    t.integer  "id",                                                       null: false
-    t.boolean  "active",                                    default: true
-    t.string   "login",                         limit: 64,                 null: false
-    t.string   "password",                      limit: nil
-    t.integer  "company_id",                                               null: false
-    t.integer  "partner_id",                                               null: false
-    t.integer  "create_uid"
-    t.datetime "create_date"
-    t.date     "login_date"
-    t.integer  "write_uid"
-    t.datetime "write_date"
-    t.text     "signature"
-    t.integer  "action_id"
-    t.string   "password_crypt",                limit: nil
-    t.integer  "alias_id",                                                 null: false
-    t.boolean  "display_groups_suggestions"
-    t.integer  "default_section_id"
-    t.boolean  "share"
-    t.boolean  "display_employees_suggestions"
-    t.string   "ean13",                         limit: 13
-    t.integer  "pos_config"
-  end
-
-  add_index "res_users", ["id_centro"], name: "res_users_id_centro_index", using: :btree
-  add_index "res_users", ["login_date"], name: "res_users_login_date_index", using: :btree
-
-  create_table "tablon2_anual", id: false, force: true do |t|
-    t.integer  "id_centro",                     limit: 8,                  null: false
-    t.integer  "id_propietario",                limit: 8,                  null: false
-    t.text     "nombre_centro",                                            null: false
-    t.string   "dir_centro",                    limit: 120
-    t.string   "sector_centro",                 limit: 120
-    t.string   "comuna_centro",                 limit: 50
-    t.string   "rut_centro",                    limit: 25
-    t.string   "web",                           limit: 80
-    t.string   "email",                         limit: 50
-    t.string   "telefonos",                     limit: 120
-    t.string   "anexo",                         limit: 20
-    t.string   "plan",                          limit: 80
-    t.integer  "id_order"
-    t.datetime "create_date_order"
-    t.integer  "sale_journal"
-    t.string   "pos_reference",                 limit: nil
-    t.integer  "write_uid_order"
-    t.integer  "account_move"
-    t.datetime "date_order"
-    t.integer  "location_id"
-    t.integer  "nb_print"
-    t.integer  "create_uid_order"
-    t.integer  "user_id_order"
-    t.integer  "partner_id_order"
-    t.integer  "company_id_order"
-    t.text     "note"
-    t.string   "state",                         limit: nil
-    t.integer  "pricelist_id"
-    t.datetime "write_date_order"
-    t.string   "name_order",                    limit: nil
-    t.integer  "invoice_id"
-    t.integer  "session_id"
-    t.integer  "picking_id"
-    t.integer  "sequence_number"
-    t.string   "customer_email",                limit: nil
-    t.integer  "id_centro_order_line"
-    t.integer  "id_order_line"
-    t.integer  "create_uid_order_line"
-    t.string   "notice",                        limit: nil
-    t.datetime "create_date_order_line"
-    t.string   "name_order_line",               limit: nil
-    t.integer  "order_id"
-    t.decimal  "price_unit"
-    t.decimal  "price_subtotal"
-    t.integer  "company_id"
-    t.decimal  "price_subtotal_incl"
-    t.decimal  "qty"
-    t.decimal  "discount"
-    t.datetime "write_date_order_line"
-    t.integer  "write_uid_order_line"
-    t.integer  "product_id"
-    t.text     "comments"
-    t.text     "order_line_note"
-    t.integer  "id_product"
-    t.string   "ean13_product",                 limit: 13
-    t.datetime "create_date_product"
-    t.string   "default_code",                  limit: nil
-    t.string   "name_template",                 limit: nil
-    t.integer  "create_uid_product"
-    t.datetime "message_last_post_product"
-    t.integer  "product_tmpl_id"
-    t.binary   "image_variant"
-    t.integer  "write_uid_product"
-    t.datetime "write_date_product"
-    t.boolean  "active_product"
-    t.integer  "id_prop",                       limit: 8
-    t.string   "nombre_propietario",            limit: 120
-    t.string   "rut_propietario",               limit: 15
-    t.string   "dir_propietario",               limit: 120
-    t.integer  "id_partner"
-    t.string   "name_partner",                  limit: nil
-    t.integer  "company_id_partner"
-    t.text     "comment"
-    t.string   "ean13_partner",                 limit: 13
-    t.datetime "create_date_partner"
-    t.integer  "color"
-    t.binary   "image_small"
-    t.binary   "image"
-    t.date     "date_partner"
-    t.string   "street",                        limit: nil
-    t.string   "city",                          limit: nil
-    t.string   "display_name",                  limit: nil
-    t.string   "zip",                           limit: 24
-    t.integer  "title"
-    t.string   "function",                      limit: nil
-    t.integer  "country_id"
-    t.integer  "parent_id"
-    t.boolean  "supplier"
-    t.string   "ref",                           limit: nil
-    t.string   "email_partner",                 limit: nil
-    t.boolean  "is_company"
-    t.string   "website",                       limit: nil
-    t.boolean  "customer"
-    t.string   "fax",                           limit: nil
-    t.string   "street2",                       limit: nil
-    t.boolean  "employee"
-    t.float    "credit_limit"
-    t.datetime "write_date"
-    t.boolean  "active_partner"
-    t.string   "tz",                            limit: 64
-    t.integer  "write_uid"
-    t.string   "lang",                          limit: nil
-    t.integer  "create_uid"
-    t.binary   "image_medium"
-    t.string   "phone",                         limit: nil
-    t.string   "mobile",                        limit: nil
-    t.string   "type",                          limit: nil
-    t.boolean  "use_parent_address"
-    t.integer  "user_id"
-    t.string   "birthdate",                     limit: nil
-    t.string   "vat",                           limit: nil
-    t.integer  "state_id"
-    t.integer  "commercial_partner_id"
-    t.string   "notify_email",                  limit: nil
-    t.datetime "message_last_post"
-    t.boolean  "opt_out"
-    t.integer  "section_id"
-    t.string   "signup_type",                   limit: nil
-    t.datetime "signup_expiration"
-    t.string   "signup_token",                  limit: nil
-    t.datetime "calendar_last_notif_ack"
-    t.datetime "last_reconciliation_date"
-    t.float    "debit_limit"
-    t.boolean  "vat_subjected"
-    t.boolean  "prefer_ereceipt"
-    t.integer  "id_centro_users"
-    t.integer  "id_users"
-    t.boolean  "active",                                    default: true
-    t.string   "login",                         limit: 64
-    t.string   "password",                      limit: nil
-    t.integer  "company_id_users"
-    t.integer  "partner_id"
-    t.integer  "create_uid_users"
-    t.datetime "create_date_users"
-    t.date     "login_date"
-    t.integer  "write_uid_users"
-    t.datetime "write_date_users"
-    t.text     "signature"
-    t.integer  "action_id"
-    t.string   "password_crypt",                limit: nil
-    t.integer  "alias_id"
-    t.boolean  "display_groups_suggestions"
-    t.integer  "default_section_id"
-    t.boolean  "share"
-    t.boolean  "display_employees_suggestions"
-    t.string   "ean13_users",                   limit: 13
-    t.integer  "pos_config"
-  end
-
-  create_table "tablon_anual", id: false, force: true do |t|
-    t.integer  "id_centro",                     limit: 8,                  null: false
-    t.integer  "id_propietario",                limit: 8,                  null: false
-    t.text     "nombre_centro",                                            null: false
-    t.string   "dir_centro",                    limit: 120
-    t.string   "sector_centro",                 limit: 120
-    t.string   "comuna_centro",                 limit: 50
-    t.string   "rut_centro",                    limit: 25
-    t.string   "web",                           limit: 80
-    t.string   "email",                         limit: 50
-    t.string   "telefonos",                     limit: 120
-    t.string   "anexo",                         limit: 20
-    t.string   "plan",                          limit: 80
-    t.integer  "id_order"
-    t.datetime "create_date_order"
-    t.integer  "sale_journal"
-    t.string   "pos_reference",                 limit: nil
-    t.integer  "write_uid_order"
-    t.integer  "account_move"
-    t.datetime "date_order"
-    t.integer  "location_id"
-    t.integer  "nb_print"
-    t.integer  "create_uid_order"
-    t.integer  "user_id_order"
-    t.integer  "partner_id_order"
-    t.integer  "company_id_order"
-    t.text     "note"
-    t.string   "state",                         limit: nil
-    t.integer  "pricelist_id"
-    t.datetime "write_date_order"
-    t.string   "name_order",                    limit: nil
-    t.integer  "invoice_id"
-    t.integer  "session_id"
-    t.integer  "picking_id"
-    t.integer  "sequence_number"
-    t.string   "customer_email",                limit: nil
-    t.integer  "id_centro_order_line"
-    t.integer  "id_order_line"
-    t.integer  "create_uid_order_line"
-    t.string   "notice",                        limit: nil
-    t.datetime "create_date_order_line"
-    t.string   "name_order_line",               limit: nil
-    t.integer  "order_id"
-    t.decimal  "price_unit"
-    t.decimal  "price_subtotal"
-    t.integer  "company_id"
-    t.decimal  "price_subtotal_incl"
-    t.decimal  "qty"
-    t.decimal  "discount"
-    t.datetime "write_date_order_line"
-    t.integer  "write_uid_order_line"
-    t.integer  "product_id"
-    t.text     "comments"
-    t.text     "order_line_note"
-    t.integer  "id_product"
-    t.string   "ean13_product",                 limit: 13
-    t.datetime "create_date_product"
-    t.string   "default_code",                  limit: nil
-    t.string   "name_template",                 limit: nil
-    t.integer  "create_uid_product"
-    t.datetime "message_last_post_product"
-    t.integer  "product_tmpl_id"
-    t.binary   "image_variant"
-    t.integer  "write_uid_product"
-    t.datetime "write_date_product"
-    t.boolean  "active_product"
-    t.integer  "id_prop",                       limit: 8
-    t.string   "nombre_propietario",            limit: 120
-    t.string   "rut_propietario",               limit: 15
-    t.string   "dir_propietario",               limit: 120
-    t.integer  "id_partner"
-    t.string   "name_partner",                  limit: nil
-    t.integer  "company_id_partner"
-    t.text     "comment"
-    t.string   "ean13_partner",                 limit: 13
-    t.datetime "create_date_partner"
-    t.integer  "color"
-    t.binary   "image_small"
-    t.binary   "image"
-    t.date     "date_partner"
-    t.string   "street",                        limit: nil
-    t.string   "city",                          limit: nil
-    t.string   "display_name",                  limit: nil
-    t.string   "zip",                           limit: 24
-    t.integer  "title"
-    t.string   "function",                      limit: nil
-    t.integer  "country_id"
-    t.integer  "parent_id"
-    t.boolean  "supplier"
-    t.string   "ref",                           limit: nil
-    t.string   "email_partner",                 limit: nil
-    t.boolean  "is_company"
-    t.string   "website",                       limit: nil
-    t.boolean  "customer"
-    t.string   "fax",                           limit: nil
-    t.string   "street2",                       limit: nil
-    t.boolean  "employee"
-    t.float    "credit_limit"
-    t.datetime "write_date"
-    t.boolean  "active_partner"
-    t.string   "tz",                            limit: 64
-    t.integer  "write_uid"
-    t.string   "lang",                          limit: nil
-    t.integer  "create_uid"
-    t.binary   "image_medium"
-    t.string   "phone",                         limit: nil
-    t.string   "mobile",                        limit: nil
-    t.string   "type",                          limit: nil
-    t.boolean  "use_parent_address"
-    t.integer  "user_id"
-    t.string   "birthdate",                     limit: nil
-    t.string   "vat",                           limit: nil
-    t.integer  "state_id"
-    t.integer  "commercial_partner_id"
-    t.string   "notify_email",                  limit: nil
-    t.datetime "message_last_post"
-    t.boolean  "opt_out"
-    t.integer  "section_id"
-    t.string   "signup_type",                   limit: nil
-    t.datetime "signup_expiration"
-    t.string   "signup_token",                  limit: nil
-    t.datetime "calendar_last_notif_ack"
-    t.datetime "last_reconciliation_date"
-    t.float    "debit_limit"
-    t.boolean  "vat_subjected"
-    t.boolean  "prefer_ereceipt"
-    t.integer  "id_centro_users"
-    t.integer  "id_users"
-    t.boolean  "active",                                    default: true
-    t.string   "login",                         limit: 64
-    t.string   "password",                      limit: nil
-    t.integer  "company_id_users"
-    t.integer  "partner_id"
-    t.integer  "create_uid_users"
-    t.datetime "create_date_users"
-    t.date     "login_date"
-    t.integer  "write_uid_users"
-    t.datetime "write_date_users"
-    t.text     "signature"
-    t.integer  "action_id"
-    t.string   "password_crypt",                limit: nil
-    t.integer  "alias_id"
-    t.boolean  "display_groups_suggestions"
-    t.integer  "default_section_id"
-    t.boolean  "share"
-    t.boolean  "display_employees_suggestions"
-    t.string   "ean13_users",                   limit: 13
-    t.integer  "pos_config"
-  end
-
-  create_table "tablon_mes", id: false, force: true do |t|
-    t.integer  "id_centro",                     limit: 8,                  null: false
-    t.integer  "id_propietario",                limit: 8,                  null: false
-    t.text     "nombre_centro",                                            null: false
-    t.string   "dir_centro",                    limit: 120
-    t.string   "sector_centro",                 limit: 120
-    t.string   "comuna_centro",                 limit: 50
-    t.string   "rut_centro",                    limit: 25
-    t.string   "web",                           limit: 80
-    t.string   "email",                         limit: 50
-    t.string   "telefonos",                     limit: 120
-    t.string   "anexo",                         limit: 20
-    t.string   "plan",                          limit: 80
-    t.integer  "id_order"
-    t.datetime "create_date_order"
-    t.integer  "sale_journal"
-    t.string   "pos_reference",                 limit: nil
-    t.integer  "write_uid_order"
-    t.integer  "account_move"
-    t.datetime "date_order"
-    t.integer  "location_id"
-    t.integer  "nb_print"
-    t.integer  "create_uid_order"
-    t.integer  "user_id_order"
-    t.integer  "partner_id_order"
-    t.integer  "company_id_order"
-    t.text     "note"
-    t.string   "state",                         limit: nil
-    t.integer  "pricelist_id"
-    t.datetime "write_date_order"
-    t.string   "name_order",                    limit: nil
-    t.integer  "invoice_id"
-    t.integer  "session_id"
-    t.integer  "picking_id"
-    t.integer  "sequence_number"
-    t.string   "customer_email",                limit: nil
-    t.integer  "id_centro_order_line"
-    t.integer  "id_order_line"
-    t.integer  "create_uid_order_line"
-    t.string   "notice",                        limit: nil
-    t.datetime "create_date_order_line"
-    t.string   "name_order_line",               limit: nil
-    t.integer  "order_id"
-    t.decimal  "price_unit"
-    t.decimal  "price_subtotal"
-    t.integer  "company_id"
-    t.decimal  "price_subtotal_incl"
-    t.decimal  "qty"
-    t.decimal  "discount"
-    t.datetime "write_date_order_line"
-    t.integer  "write_uid_order_line"
-    t.integer  "product_id"
-    t.text     "comments"
-    t.text     "order_line_note"
-    t.integer  "id_product"
-    t.string   "ean13_product",                 limit: 13
-    t.datetime "create_date_product"
-    t.string   "default_code",                  limit: nil
-    t.string   "name_template",                 limit: nil
-    t.integer  "create_uid_product"
-    t.datetime "message_last_post_product"
-    t.integer  "product_tmpl_id"
-    t.binary   "image_variant"
-    t.integer  "write_uid_product"
-    t.datetime "write_date_product"
-    t.boolean  "active_product"
-    t.integer  "id_prop",                       limit: 8
-    t.string   "nombre_propietario",            limit: 120
-    t.string   "rut_propietario",               limit: 15
-    t.string   "dir_propietario",               limit: 120
-    t.integer  "id_partner"
-    t.string   "name_partner",                  limit: nil
-    t.integer  "company_id_partner"
-    t.text     "comment"
-    t.string   "ean13_partner",                 limit: 13
-    t.datetime "create_date_partner"
-    t.integer  "color"
-    t.binary   "image_small"
-    t.binary   "image"
-    t.date     "date_partner"
-    t.string   "street",                        limit: nil
-    t.string   "city",                          limit: nil
-    t.string   "display_name",                  limit: nil
-    t.string   "zip",                           limit: 24
-    t.integer  "title"
-    t.string   "function",                      limit: nil
-    t.integer  "country_id"
-    t.integer  "parent_id"
-    t.boolean  "supplier"
-    t.string   "ref",                           limit: nil
-    t.string   "email_partner",                 limit: nil
-    t.boolean  "is_company"
-    t.string   "website",                       limit: nil
-    t.boolean  "customer"
-    t.string   "fax",                           limit: nil
-    t.string   "street2",                       limit: nil
-    t.boolean  "employee"
-    t.float    "credit_limit"
-    t.datetime "write_date"
-    t.boolean  "active_partner"
-    t.string   "tz",                            limit: 64
-    t.integer  "write_uid"
-    t.string   "lang",                          limit: nil
-    t.integer  "create_uid"
-    t.binary   "image_medium"
-    t.string   "phone",                         limit: nil
-    t.string   "mobile",                        limit: nil
-    t.string   "type",                          limit: nil
-    t.boolean  "use_parent_address"
-    t.integer  "user_id"
-    t.string   "birthdate",                     limit: nil
-    t.string   "vat",                           limit: nil
-    t.integer  "state_id"
-    t.integer  "commercial_partner_id"
-    t.string   "notify_email",                  limit: nil
-    t.datetime "message_last_post"
-    t.boolean  "opt_out"
-    t.integer  "section_id"
-    t.string   "signup_type",                   limit: nil
-    t.datetime "signup_expiration"
-    t.string   "signup_token",                  limit: nil
-    t.datetime "calendar_last_notif_ack"
-    t.datetime "last_reconciliation_date"
-    t.float    "debit_limit"
-    t.boolean  "vat_subjected"
-    t.boolean  "prefer_ereceipt"
-    t.integer  "id_centro_users"
-    t.integer  "id_users"
-    t.boolean  "active",                                    default: true
-    t.string   "login",                         limit: 64
-    t.string   "password",                      limit: nil
-    t.integer  "company_id_users"
-    t.integer  "partner_id"
-    t.integer  "create_uid_users"
-    t.datetime "create_date_users"
-    t.date     "login_date"
-    t.integer  "write_uid_users"
-    t.datetime "write_date_users"
-    t.text     "signature"
-    t.integer  "action_id"
-    t.string   "password_crypt",                limit: nil
-    t.integer  "alias_id"
-    t.boolean  "display_groups_suggestions"
-    t.integer  "default_section_id"
-    t.boolean  "share"
-    t.boolean  "display_employees_suggestions"
-    t.string   "ean13_users",                   limit: 13
-    t.integer  "pos_config"
-  end
-
-  create_table "tablon_mes_anterior", id: false, force: true do |t|
-    t.integer  "id_centro",                     limit: 8,                  null: false
-    t.integer  "id_propietario",                limit: 8,                  null: false
-    t.text     "nombre_centro",                                            null: false
-    t.string   "dir_centro",                    limit: 120
-    t.string   "sector_centro",                 limit: 120
-    t.string   "comuna_centro",                 limit: 50
-    t.string   "rut_centro",                    limit: 25
-    t.string   "web",                           limit: 80
-    t.string   "email",                         limit: 50
-    t.string   "telefonos",                     limit: 120
-    t.string   "anexo",                         limit: 20
-    t.string   "plan",                          limit: 80
-    t.integer  "id_order"
-    t.datetime "create_date_order"
-    t.integer  "sale_journal"
-    t.string   "pos_reference",                 limit: nil
-    t.integer  "write_uid_order"
-    t.integer  "account_move"
-    t.datetime "date_order"
-    t.integer  "location_id"
-    t.integer  "nb_print"
-    t.integer  "create_uid_order"
-    t.integer  "user_id_order"
-    t.integer  "partner_id_order"
-    t.integer  "company_id_order"
-    t.text     "note"
-    t.string   "state",                         limit: nil
-    t.integer  "pricelist_id"
-    t.datetime "write_date_order"
-    t.string   "name_order",                    limit: nil
-    t.integer  "invoice_id"
-    t.integer  "session_id"
-    t.integer  "picking_id"
-    t.integer  "sequence_number"
-    t.string   "customer_email",                limit: nil
-    t.integer  "id_centro_order_line"
-    t.integer  "id_order_line"
-    t.integer  "create_uid_order_line"
-    t.string   "notice",                        limit: nil
-    t.datetime "create_date_order_line"
-    t.string   "name_order_line",               limit: nil
-    t.integer  "order_id"
-    t.decimal  "price_unit"
-    t.decimal  "price_subtotal"
-    t.integer  "company_id"
-    t.decimal  "price_subtotal_incl"
-    t.decimal  "qty"
-    t.decimal  "discount"
-    t.datetime "write_date_order_line"
-    t.integer  "write_uid_order_line"
-    t.integer  "product_id"
-    t.text     "comments"
-    t.text     "order_line_note"
-    t.integer  "id_product"
-    t.string   "ean13_product",                 limit: 13
-    t.datetime "create_date_product"
-    t.string   "default_code",                  limit: nil
-    t.string   "name_template",                 limit: nil
-    t.integer  "create_uid_product"
-    t.datetime "message_last_post_product"
-    t.integer  "product_tmpl_id"
-    t.binary   "image_variant"
-    t.integer  "write_uid_product"
-    t.datetime "write_date_product"
-    t.boolean  "active_product"
-    t.integer  "id_prop",                       limit: 8
-    t.string   "nombre_propietario",            limit: 120
-    t.string   "rut_propietario",               limit: 15
-    t.string   "dir_propietario",               limit: 120
-    t.integer  "id_partner"
-    t.string   "name_partner",                  limit: nil
-    t.integer  "company_id_partner"
-    t.text     "comment"
-    t.string   "ean13_partner",                 limit: 13
-    t.datetime "create_date_partner"
-    t.integer  "color"
-    t.binary   "image_small"
-    t.binary   "image"
-    t.date     "date_partner"
-    t.string   "street",                        limit: nil
-    t.string   "city",                          limit: nil
-    t.string   "display_name",                  limit: nil
-    t.string   "zip",                           limit: 24
-    t.integer  "title"
-    t.string   "function",                      limit: nil
-    t.integer  "country_id"
-    t.integer  "parent_id"
-    t.boolean  "supplier"
-    t.string   "ref",                           limit: nil
-    t.string   "email_partner",                 limit: nil
-    t.boolean  "is_company"
-    t.string   "website",                       limit: nil
-    t.boolean  "customer"
-    t.string   "fax",                           limit: nil
-    t.string   "street2",                       limit: nil
-    t.boolean  "employee"
-    t.float    "credit_limit"
-    t.datetime "write_date"
-    t.boolean  "active_partner"
-    t.string   "tz",                            limit: 64
-    t.integer  "write_uid"
-    t.string   "lang",                          limit: nil
-    t.integer  "create_uid"
-    t.binary   "image_medium"
-    t.string   "phone",                         limit: nil
-    t.string   "mobile",                        limit: nil
-    t.string   "type",                          limit: nil
-    t.boolean  "use_parent_address"
-    t.integer  "user_id"
-    t.string   "birthdate",                     limit: nil
-    t.string   "vat",                           limit: nil
-    t.integer  "state_id"
-    t.integer  "commercial_partner_id"
-    t.string   "notify_email",                  limit: nil
-    t.datetime "message_last_post"
-    t.boolean  "opt_out"
-    t.integer  "section_id"
-    t.string   "signup_type",                   limit: nil
-    t.datetime "signup_expiration"
-    t.string   "signup_token",                  limit: nil
-    t.datetime "calendar_last_notif_ack"
-    t.datetime "last_reconciliation_date"
-    t.float    "debit_limit"
-    t.boolean  "vat_subjected"
-    t.boolean  "prefer_ereceipt"
-    t.integer  "id_centro_users"
-    t.integer  "id_users"
-    t.boolean  "active",                                    default: true
-    t.string   "login",                         limit: 64
-    t.string   "password",                      limit: nil
-    t.integer  "company_id_users"
-    t.integer  "partner_id"
-    t.integer  "create_uid_users"
-    t.datetime "create_date_users"
-    t.date     "login_date"
-    t.integer  "write_uid_users"
-    t.datetime "write_date_users"
-    t.text     "signature"
-    t.integer  "action_id"
-    t.string   "password_crypt",                limit: nil
-    t.integer  "alias_id"
-    t.boolean  "display_groups_suggestions"
-    t.integer  "default_section_id"
-    t.boolean  "share"
-    t.boolean  "display_employees_suggestions"
-    t.string   "ean13_users",                   limit: 13
-    t.integer  "pos_config"
-  end
-
-  create_table "tef_centro", id: false, force: true do |t|
-    t.integer "id_centro", limit: 8, null: false
-    t.integer "id_tef",    limit: 8, null: false
-  end
-
-  create_table "telefonia", id: false, force: true do |t|
-    t.integer  "id_centro",     limit: 8,  null: false
-    t.integer  "id_tef",        limit: 8,  null: false
-    t.datetime "fecha_llamada",            null: false
-    t.string   "origen_call",   limit: 30
-    t.string   "destino_call",  limit: 30
-    t.integer  "duracion",      limit: 8
-    t.string   "status",        limit: 30
-  end
-
-  create_table "telefonia_stg", id: false, force: true do |t|
-    t.datetime "fecha_llamada"
-    t.string   "origen_call",   limit: 30
-    t.string   "destino_call",  limit: 30
-    t.integer  "duracion",      limit: 8
-    t.string   "status",        limit: 30
+  create_table "services", force: true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|

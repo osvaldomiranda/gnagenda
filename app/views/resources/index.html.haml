@@ -1,0 +1,30 @@
+.container{:role => "main"}
+  .col-md-12
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title Serivicios por centro
+      .panel-body
+
+        %h1 Servicios por centro
+
+        %table.table.table-striped
+          %thead
+            %tr
+              %th Name
+              %th Description
+              %th
+              %th
+              %th
+
+          %tbody
+            - @resources.each do |resource|
+              %tr
+                %td= resource.name
+                %td= resource.description
+                %td= link_to 'Show', resource
+                %td= link_to 'Edit', edit_resource_path(resource)
+                %td= link_to 'Destroy', resource, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+        %br
+
+        = link_to 'New Resource', new_resource_path

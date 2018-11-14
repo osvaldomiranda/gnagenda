@@ -1,0 +1,30 @@
+.container{:role => "main"}
+  .col-md-12
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title Notas
+      .panel-body
+
+        %h1 Notas
+
+        %table.table.table-striped
+          %thead
+            %tr
+              %th Body
+              %th Schedule
+              %th
+              %th
+              %th
+
+          %tbody
+            - @notes.each do |note|
+              %tr
+                %td= note.body
+                %td= note.schedule
+                %td= link_to 'Show', note
+                %td= link_to 'Edit', edit_note_path(note)
+                %td= link_to 'Destroy', note, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+        %br
+
+        = link_to 'New Note', new_note_path

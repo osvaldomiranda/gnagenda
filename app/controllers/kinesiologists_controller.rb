@@ -4,15 +4,7 @@ class KinesiologistsController < ApplicationController
   respond_to :html
 
   def index
-    @id_centro = params[:center] || nil
-
-    if params[:center].present?
-      @kinesiologists = Kinesiologist.with_center(@id_centro)
-    else
-      @kinesiologists = Kinesiologist.all.order(:id_centro) 
-    end
-
-    
+    @kinesiologists = Kinesiologist.all
     respond_with(@kinesiologists)
   end
 
@@ -42,9 +34,6 @@ class KinesiologistsController < ApplicationController
   def destroy
     @kinesiologist.destroy
     respond_with(@kinesiologist)
-  end
-
-  def value_hh
   end
 
   private

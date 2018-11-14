@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Duration:
+  = @block.duration
+%p
+  %b Zone:
+  = @block.zone
+
+= link_to 'Edit', edit_block_path(@block)
+\|
+= link_to 'Back', blocks_path

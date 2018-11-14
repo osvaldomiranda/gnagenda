@@ -1,0 +1,30 @@
+.container{:role => "main"}
+  .col-md-12
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title Bloques
+      .panel-body
+
+        %h1 Bloques
+
+        %table.table.table-striped
+          %thead
+            %tr
+              %th Duration
+              %th Zone
+              %th
+              %th
+              %th
+
+          %tbody
+            - @blocks.each do |block|
+              %tr
+                %td= block.duration
+                %td= block.zone
+                %td= link_to 'Show', block
+                %td= link_to 'Edit', edit_block_path(block)
+                %td= link_to 'Destroy', block, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+        %br
+
+        = link_to 'New Block', new_block_path

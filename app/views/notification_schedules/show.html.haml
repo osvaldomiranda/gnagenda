@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Receiver:
+  = @notification_schedule.receiver
+%p
+  %b Means:
+  = @notification_schedule.means
+%p
+  %b Notification:
+  = @notification_schedule.notification
+
+= link_to 'Edit', edit_notification_schedule_path(@notification_schedule)
+\|
+= link_to 'Back', notification_schedules_path

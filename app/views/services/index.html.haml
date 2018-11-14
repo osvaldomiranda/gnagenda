@@ -1,0 +1,30 @@
+.container{:role => "main"}
+  .col-md-12
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title Servicios
+      .panel-body
+      
+        %h1 Servicios
+
+        %table.table.table-striped
+          %thead
+            %tr
+              %th Name
+              %th Description
+              %th
+              %th
+              %th
+
+          %tbody
+            - @services.each do |service|
+              %tr
+                %td= service.name
+                %td= service.description
+                %td= link_to 'Show', service
+                %td= link_to 'Edit', edit_service_path(service)
+                %td= link_to 'Destroy', service, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+        %br
+
+        = link_to 'New Service', new_service_path

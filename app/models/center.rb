@@ -1,20 +1,22 @@
 class Center < ActiveRecord::Base
-  self.table_name = "centros"
-  before_create :set_id_centro
-  
+  has_many :resources
+  has_many :look_times
+  has_many :notifications
 
-  validates :rut_centro, presence: true, rutFormat: true
 
-  def set_id_centro
-    last_id_centro = Center.maximum(:id_centro)
-    self.id_centro = last_id_centro.to_i + 1
-  end
-
-  STATUS = ['OK', 'NO OK']
-  def self.status_for_select
-    STATUS.each.map { |t| [t, t.upcase.gsub(' ', '_')] }
+  def self.for_select
+    OwnerProp.all.order(:email).map{|t| [t.email, User.where(email: t.email).first.id]}
   end 
 
-
-
+  def self.for_select(user_id)
+    user = User.find(user_id)
+    if user.role?('admin')
+      Center.all.order(:nombre_centro).map{|t| [t.nombre_centro, t.id_centro]}
+    else    
+      # owner = Center.where(email: user.email).first
+      # centers = OwnerProp.where(id_propietario: owner.id_propietario) 
+      # Center.where(id_centro: centers.map{|c| c.id_centro}).map{|t| [t.nombre_centro, t.id_centro]}
+      Center.all.order(:nombre_centro).map{|t| [t.nombre_centro, t.id_centro]}
+    end  
+  end 
 end
