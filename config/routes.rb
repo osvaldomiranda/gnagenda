@@ -22,6 +22,7 @@ GnAgenda::Application.routes.draw do
   resources :schedules do
     collection do
       get :charge
+      get :programing
     end
   end
 

@@ -13,11 +13,12 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require calendar
 //= require Chart.bundle
 //= require chartkick
 
-//= require moment 
-//= require fullcalendar
 
 //= require_tree .
+
+
 

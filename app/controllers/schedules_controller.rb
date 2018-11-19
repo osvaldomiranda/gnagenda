@@ -11,6 +11,23 @@ class SchedulesController < ApplicationController
     respond_with(@schedules)
   end
 
+  def programing
+    @events = {
+      events: [
+          {
+            title: 'Event1',
+            start: '2018-11-18'
+          },
+          {
+            title: 'Event2',
+            start: '2011-11-18'
+          }
+    
+        ],
+        color: 'yellow',   
+        textColor: 'black' 
+      }
+  end
 
   def show
     respond_with(@schedule)

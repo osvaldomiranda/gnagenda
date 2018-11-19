@@ -1,0 +1,47 @@
+.container{:role => "main"}
+  .col-md-12
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title Programa
+      .panel-body
+        .scroll-panel
+          .row
+            .col-md-12
+              #calendar
+
+
+:javascript
+  $('#calendar').fullCalendar({
+   schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
+  defaultView: 'agendaDay',
+    header: { center: 'month,agendaWeek,agendaDay' },
+    resources: [
+      { id: 'a', title: 'Depilación Diodo' },
+      { id: 'b', title: 'Depilación Láser SHR' }
+    ],
+    events: [
+      { id: '1', 
+        resourceId: 'a', 
+        start: '2018-11-19 14:00:00', 
+        end: '2018-11-19 16:00:00', 
+        title: 'Cliente 1' 
+      },
+      { id: '2', 
+          resourceId: 'b', 
+          start: '2018-11-19 16:00:00', 
+          end: '2018-11-10 17:00:00', 
+          title: 'Cliente 2' 
+      },
+      { id: '3', 
+          resourceId: 'a', 
+          start: '2018-11-19 16:00:00', 
+          end: '2018-11-10 17:00:00', 
+          title: 'Cliente 3' 
+      }
+    ],
+    eventColor: 'green'
+
+
+  });
+  $(document).on('turbolinks:load', initialize_calendar);
+

@@ -18,7 +18,7 @@
                 %span.badge= "1"
                 / = current_user.owner_centers.count
 
-
+                = link_to "Programa", programing_schedules_path
           %hr      
           .row
             .col-md-4
@@ -129,19 +129,19 @@
 
 
           = link_to 'Agendar', new_schedule_path, class: "btn btn-warning" 
-           
+
           %table.table.table-striped
             %thead
               %tr
-                %th Rol
-                %th Reservation
-                %th Status
-                %th Creation time
-                %th Start time
-                %th End time
+                %th Origen
+                %th Id
+                %th Estado
+                %th Fecha Creación
+                %th Inicio
+                %th Fin
                 %th Email
-                %th Mobile number
-                %th Name
+                %th Telefono
+                %th Recurso
                 %th
                 %th
                 %th

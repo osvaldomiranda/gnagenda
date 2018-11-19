@@ -71,8 +71,12 @@ gem "chartkick"
 gem 'groupdate'
 
 # for calendar
-gem 'fullcalendar-rails'
+
 gem 'momentjs-rails'
+gem 'fullcalendar'
+
+
+
 
 # for api planyo
 gem 'rest-client', '~> 1.7.2'
