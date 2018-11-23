@@ -5,19 +5,45 @@
         %h3.panel-title Clientes
       .panel-body
         %h1 Clientes
+        %hr  
+        .row
+          .col-md-12
+            .form-inline
+              = label_tag :filter_mostrar, 'Filtrar Clientes'
+              = select_tag :filter_mostrar, options_for_select(Client.status_for_select, @status), prompt: 'Todos', class: "form-control" 
+        %br
+        %hr      
+        .row
+          .col-md-12
+            = simple_form_for(clients_path,:method => :get ) do |f|
+              .form-group  
+                .col-sm-4
+                  = f.input :nombre, label: false, placeholder: "Nombre", :input_html => {:style=> 'width: 350px'} 
+                .col-sm-4
+                  = f.input :apellido, label: false, placeholder: "Apellido", :input_html => {:style=> 'width: 350px'} 
+              .form-group  
+                .col-sm-4
+                  = f.input :reserva, label: false, placeholder: "Reserva", :input_html => {:style=> 'width: 150px'} 
+              .form-group  
+                .col-sm-4
+                  = f.input :email, label: false, placeholder: "email", :input_html => {:style=> 'width: 150px'} 
+              .col-sm-4  
+                = f.button :submit, "Buscar",  class: "btn btn-primary"
+        %br
+        %br        
 
         %table.table.table-striped
           %thead
             %tr
               %th Rut
-              %th First name
-              %th Last name
+              %th Nombre
+              %th Apellido
               %th Email
-              %th Celphone
-              %th Age
-              %th Gender
-              %th Citizenship
-              %th Origin
+              %th Celular
+              %th Edad
+              %th Genero
+              %th Nacionalidad
+              %th Origen
               %th State
               %th
               %th
@@ -36,10 +62,10 @@
                 %td= client.citizenship
                 %td= client.origin
                 %td= client.state
-                %td= link_to 'Show', client
-                %td= link_to 'Edit', edit_client_path(client)
-                %td= link_to 'Destroy', client, :method => :delete, :data => { :confirm => 'Are you sure?' }
+                %td= link_to 'Mostrar', client
+                / %td= link_to 'Editar', edit_client_path(client)
+                %td= link_to 'Eliminar', client, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
         %br
 
-        = link_to 'New Client', new_client_path
+        = link_to 'Nuevo Cliente', new_client_path

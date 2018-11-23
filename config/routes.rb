@@ -23,6 +23,10 @@ GnAgenda::Application.routes.draw do
     collection do
       get :charge
       get :programing
+      get :list
+    end
+    member do
+      get :detail
     end
   end
 

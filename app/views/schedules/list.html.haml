@@ -1,0 +1,43 @@
+.container{:role => "main"}
+  .col-md-12
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title Reservas
+      .panel-body
+        %h1 Reservas
+        %hr  
+        .row
+          .col-md-12
+            .form-inline
+              = label_tag :filter_mostrar, 'Filtrar por recuerso'
+              = select_tag :filter_mostrar, options_for_select(Service.for_select, @status), prompt: 'Todos', class: "form-control" 
+        %br
+        %hr      
+        %br
+        %br        
+
+        %table.table.table-striped
+          %thead
+            %tr
+              %th Id
+              %th Recurso
+              %th Cliente
+              %th Email
+              %th Fecha
+              %th Status
+              %th Creado
+
+
+          %tbody
+            - @schedules.each do |schedule|
+              %tr
+                %td= link_to schedule.id, detail_schedule_path(schedule.id)
+                %td= schedule.name
+                %td= "#{schedule.first_name} #{schedule.last_name}" 
+                %td= schedule.email
+                %td= schedule.start_time.strftime('%Y-%m-%d')
+                %td= schedule.status
+                %td= schedule.created_at.strftime('%Y-%m-%d')
+
+ 
+

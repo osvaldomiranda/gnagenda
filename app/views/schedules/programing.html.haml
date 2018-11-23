@@ -1,10 +1,14 @@
 .container{:role => "main"}
   .col-md-12
     .panel.panel-default
-      .panel-heading
-        %h3.panel-title Programa
       .panel-body
         .scroll-panel
+          .row 
+            .col-md-8
+            .col-md-4.text-right
+              = link_to '+ Hacer una reserva', new_schedule_path, class: "btn btn-lg btn-success" 
+          %br
+          %br    
           .row
             .col-md-12
               #calendar
@@ -13,32 +17,51 @@
 :javascript
   $('#calendar').fullCalendar({
    schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
+
+  allDaySlot: false,
+  slotDuration: "00:15:00",
+  minTime: "09:00:00",
+  maxTime: "20:30:00",
   defaultView: 'agendaDay',
-    header: { center: 'month,agendaWeek,agendaDay' },
-    resources: [
-      { id: 'a', title: 'Depilación Diodo' },
-      { id: 'b', title: 'Depilación Láser SHR' }
-    ],
-    events: [
-      { id: '1', 
-        resourceId: 'a', 
-        start: '2018-11-19 14:00:00', 
-        end: '2018-11-19 16:00:00', 
-        title: 'Cliente 1' 
-      },
-      { id: '2', 
-          resourceId: 'b', 
-          start: '2018-11-19 16:00:00', 
-          end: '2018-11-10 17:00:00', 
-          title: 'Cliente 2' 
-      },
-      { id: '3', 
-          resourceId: 'a', 
-          start: '2018-11-19 16:00:00', 
-          end: '2018-11-10 17:00:00', 
-          title: 'Cliente 3' 
+ 
+  eventRender: function(eventObj, $el) {
+    $el.popover({
+      title: eventObj.title,
+      content: eventObj.start.format('DD-MM-YYYY HH:m'),
+      trigger: 'hover',
+      placement: 'top',
+      container: 'body'
+    });
+  },
+
+  eventClick: function(calEvent, jsEvent, view) {
+    window.location.href = "http://localhost:3000/schedules/"+calEvent.id+"/detail" ;
+  },
+
+
+    header: {
+    left: 'prev,next today',
+    center: 'title',
+    right: 'agendaDay, listDay, timelineThreDays,agendaWeek,month, listMonth'
+    },
+    buttonText:{
+      month:    'mes',
+      week:     'semana',
+      listDay: 'día',
+      agendaDay: 'día-vertical',
+      listMonth:'agenda-mes'
+    },
+    views: {
+    timelineThreDays: {
+      type: 'timeline',
+      duration: { days: 3 }
       }
+    },
+    resources: [
+      { id: 'Depilación Diodo', title: 'Depilación Diodo' },
+      { id: 'Depilación Láser SHR', title: 'Depilación Láser SHR' }
     ],
+    events: #{@events.to_json.html_safe},
     eventColor: 'green'
 
 

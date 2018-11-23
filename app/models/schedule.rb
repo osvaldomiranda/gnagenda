@@ -27,4 +27,17 @@ class Schedule < ActiveRecord::Base
     ORIGIN.each.map { |t| [t, t.upcase.gsub(' ', '_')] }
   end
 
+    MOSTRAR      = ['Resrvaciones registradas', 'LLegada de Clientes']
+  def self.mostrar_for_select
+    #GENDERS.to_enum.with_index(0).to_a
+    MOSTRAR.each.map { |t| [t, t.upcase.gsub(' ', '_')] }
+  end
+
+    STATUS      = ['Resrva Confirmada', 'Reserva Registrada', 'Verificada']
+  def self.status_for_select
+    #GENDERS.to_enum.with_index(0).to_a
+    STATUS.each.map { |t| [t, t.upcase.gsub(' ', '_')] }
+  end
+
+
 end

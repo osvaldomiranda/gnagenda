@@ -1,5 +1,5 @@
 class SchedulesController < ApplicationController
-  before_action :set_schedule, only: [:show, :edit, :update, :destroy]
+  before_action :set_schedule, only: [:show, :edit, :update, :destroy, :detail]
 
   respond_to :html
 
@@ -8,28 +8,28 @@ class SchedulesController < ApplicationController
     @tipos = Service.all
     @date = params[:date].present? ? Date.parse(params[:date]) : Date.today
     @schedules = Schedule.where(start_time: @date.beginning_of_day..@date.end_of_day).order(:start_time)
+    @hoy = 0
+    @ayer = 0
+    @ultimos7 = 0
+
+    respond_with(@schedules)
+  end
+
+  def list
+    @date = params[:date].present? ? Date.parse(params[:date]) : Date.today
+    @schedules = Schedule.all
     respond_with(@schedules)
   end
 
   def programing
-    @events = {
-      events: [
-          {
-            title: 'Event1',
-            start: '2018-11-18'
-          },
-          {
-            title: 'Event2',
-            start: '2011-11-18'
-          }
-    
-        ],
-        color: 'yellow',   
-        textColor: 'black' 
-      }
+    @events =  Schedule.all.map{|s| {id: s.id, title: "#{s.first_name} #{s.last_name}", start: s.start_time.strftime('%d-%m-%Y %H:%M:00'), end: s.end_time.strftime('%d-%m-%Y %H:%M:00'), resourceId: s.name}}
   end
 
   def show
+    respond_with(@schedule)
+  end
+
+  def detail
     respond_with(@schedule)
   end
 

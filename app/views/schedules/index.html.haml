@@ -18,220 +18,165 @@
                 %span.badge= "1"
                 / = current_user.owner_centers.count
 
-                = link_to "Programa", programing_schedules_path
           %hr      
           .row
             .col-md-4
-              %h3 Mes
             .col-md-4
               = image_tag("planyo_status.png")
 
-          .row
-            %h3
-              .col-md-4
-              .col-md-1.text-center
-                = link_to "<<", schedules_path(center: @id_centro, date: @date.prev_month)
-              .col-md-2.text-center  
-                = @date.strftime('%m-%Y')
-              .col-md-1.text-center  
-                = link_to ">>", schedules_path(center: @id_centro, date: @date.next_month)
-                  
-          .row
-            .col-md-12 
-              %table.table.table-responsive
-                %thead
-                  %tr
-                    %th
-                    - (1..LookTime.days_in_month(@date.strftime("%m").to_i,@date.strftime("%Y").to_i)).each do |dia|
-                      %th= LookTime.day_name(Date.parse("#{@date.strftime('%Y-%m')}-#{dia}"))  
-                  %tr
-                    %th
-                    - (1..LookTime.days_in_month(@date.strftime("%m").to_i,@date.strftime("%Y").to_i)).each do |dia|
-                      %td= dia                 
-                %tbody
-                  - @tipos.each do |tipo|
-                    %tr          
-                      %td= tipo.name
+
+
+            %button{:onclick => "switchFunction()"} Click Me
+            %rb
+            %rb
+            %hr 
+
+
+          #mesDIV{:style => "display: none;"}
+            .row
+              .col-md-12
+                %h4 Mes
+              %h4
+                .col-md-4
+                .col-md-1.text-center
+                  = link_to "<<", schedules_path(center: @id_centro, date: @date.prev_month)
+                .col-md-2.text-center  
+                  = @date.strftime('%m-%Y')
+                .col-md-1.text-center  
+                  = link_to ">>", schedules_path(center: @id_centro, date: @date.next_month)
+                        
+            .row
+              .col-md-12 
+                %table.table-sm.table-responsive
+                  %thead
+                    %tr
+                      %th
                       - (1..LookTime.days_in_month(@date.strftime("%m").to_i,@date.strftime("%Y").to_i)).each do |dia|
-                        - if Schedule.reservado(@id_centro, tipo.name, Date.parse("#{@date.strftime('%Y-%m')}-#{dia}"))
-                          %td= link_to image_tag("reservado.png"), schedules_path(center: @id_centro, date: "#{@date.strftime('%Y-%m')}-#{dia}") 
+                        %th= LookTime.day_name(Date.parse("#{@date.strftime('%Y-%m')}-#{dia}"))  
+                    %tr
+                      %th
+                      - (1..LookTime.days_in_month(@date.strftime("%m").to_i,@date.strftime("%Y").to_i)).each do |dia|
+                        %td= dia                 
+                  %tbody
+                    - @tipos.each do |tipo|
+                      %tr          
+                        %td= tipo.name
+                        - (1..LookTime.days_in_month(@date.strftime("%m").to_i,@date.strftime("%Y").to_i)).each do |dia|
+                          - if Schedule.reservado(@id_centro, tipo.name, Date.parse("#{@date.strftime('%Y-%m')}-#{dia}"))
+                            %td= link_to image_tag("reservado.png"), schedules_path(center: @id_centro, date: "#{@date.strftime('%Y-%m')}-#{dia}") 
+                          - else
+                            %td= link_to image_tag("disponible.png"), schedules_path(center: @id_centro, date: "#{@date.strftime('%Y-%m')}-#{dia}")  
+          #diaDIV
+            .row
+              .col-md-12 
+                %h4 Dia
+              %h4
+                .col-md-4
+                .col-md-1.text-center
+                  = link_to "<<", schedules_path(center: @id_centro, date: @date.prev_day)
+                .col-md-2.text-center  
+                  = @date.strftime('%d-%m-%Y')
+                .col-md-1.text-center  
+                  = link_to ">>", schedules_path(center: @id_centro, date: @date.next_day)
+            .row
+              .col-md-12 
+                %table.table-sm.table-responsive
+                  %thead
+                    %tr
+                      %th
+                      - LookTime.hours_in_day.each do |dia| 
+                        - if dia.strftime("%M") == "00" 
+                          %td= "#{dia.strftime("%H")}" 
                         - else
-                          %td= link_to image_tag("disponible.png"), schedules_path(center: @id_centro, date: "#{@date.strftime('%Y-%m')}-#{dia}") 
-          %rb
-          %rb
-          %hr 
-          .row
-            .col-md-12 
-              %h3 Dia
-            %h3
-              .col-md-4
-              .col-md-1.text-center
-                / = link_to "<<", schedules_path(center: @id_centro, date: @date.prev_day)
-              .col-md-2.text-center  
-                = @date.strftime('%d-%m-%Y')
-              .col-md-1.text-center  
-                / = link_to ">>", schedules_path(center: @id_centro, date: @date.next_day)
-          .row
-            .col-md-12 
-              %table.table-sm.table-responsive
-                %thead
-                  %tr
-                    %th
-                    - LookTime.hours_in_day.each do |dia| 
-                      - if dia.strftime("%M") == "00" 
-                        %td= "#{dia.strftime("%H")}" 
-                      - else
-                        %td 
-                  %tr
-                    %th    
-                    - LookTime.hours_in_day.each do |dia|  
-                      %td= "#{dia.strftime("%M")}"       
-                %tbody
-                  - @tipos.each do |tipo|
-                    %tr  
-                      %td= tipo.name
-                      - LookTime.hours_in_day.each do |hora|
-                        - if Schedule.reservado_hora(@id_centro, tipo.name, "#{@date.strftime('%Y-%m-%d')} #{hora.strftime('%H:%M')}")
-                          %td= link_to image_tag("reservado.png"), schedules_path(center: @id_centro, date: "#{@date.strftime('%Y-%m-%d')}", datetime: "#{@date.strftime('%Y-%m-%d')} #{hora.strftime('%H:%M')}", tipo: tipo.name )  
-                        - else
-                          %td= image_tag("disponible.png")
+                          %td 
+                    %tr
+                      %th    
+                      - LookTime.hours_in_day.each do |dia|  
+                        %td= "#{dia.strftime("%M")}"       
+                  %tbody
+                    - @tipos.each do |tipo|
+                      %tr  
+                        %td= tipo.name
+                        - LookTime.hours_in_day.each do |hora|
+                          - if Schedule.reservado_hora(@id_centro, tipo.name, "#{@date.strftime('%Y-%m-%d')} #{hora.strftime('%H:%M')}")
+                            %td= link_to image_tag("reservado.png"), schedules_path(center: @id_centro, date: "#{@date.strftime('%Y-%m-%d')}", datetime: "#{@date.strftime('%Y-%m-%d')} #{hora.strftime('%H:%M')}", tipo: tipo.name )  
+                          - else
+                            %td= image_tag("disponible.png")
+            %br
+            %hr  
+            .row
+              .col-md-12
+                .form-inline
+                  = label_tag :filter_mostrar, 'Mostrar'
+                  = select_tag :filter_mostrar, options_for_select(Schedule.mostrar_for_select, @mostrar), prompt: 'Todos', class: "form-control" 
 
-
-
-
-          / - if @schedule.present?
-          /   %rb
-          /   %rb
-          /   %hr 
-          /   .row
-          /     .col-md-12 
-          /       %h4= @schedule.reservation_id
-          /       %h4= @schedule.name
-          /       %p= "Creado: #{@schedule.creation_time.strftime('%d-%m-%Y %I:%M')}"
-          /       %p= "Inicio: #{@schedule.start_time.strftime('%d-%m-%Y %I:%M')}"
-          /       %p= "Termino: #{@schedule.end_time.strftime('%d-%m-%Y %I:%M')}"
-          /       %p= "Nombres: #{@schedule.first_name}"
-          /       %p= "Apellidos: #{@schedule.last_name}"
-          /       %p= "Email: #{@schedule.email}"
-          /       %p= "#{@schedule.mobile_country_code} #{@schedule.mobile_number}"
+                  = label_tag :filter_estado, 'Estado'
+                  = select_tag :filter_estado, options_for_select(Schedule.status_for_select, @estado), prompt: 'Todos', class: "form-control"
               
-          /     %hr  
-          /     .col-md-8  
-          /       %h3 Mensaje:
-          /       %p= @schedule.user_notes
+               
+            .row
+              .col-md-12 
+                %h3 Estadisticas sobre actividades
+              .col-md-2
+                %h4 hoy
+              .col-md-2
+                %h4 ayer
+              .col-md-2
+                %h4 ultimos 7 días
+            .row    
+              .col-md-2
+                %h4= @hoy
+              .col-md-2
+                %h4= @ayer
+              .col-md-2
+                %h4= @ultimos7
+            %br
+            %hr                
+            .row
+              .col-md-12 
+                %h3 Próximas Reservas
+                %br
+                %table.table.table-striped
+                  %thead
+                    %tr
+                      %th Id
+                      %th Recurso
+                      %th Tiempo Reserva
+                      %th Status
+                      %th Creado
 
-          %br
-          %br
-          %br
-          %h3= "Detalle para el día #{@date.strftime('%d-%m-%Y')}"
-          %br
-         
+                  %tbody
+
+            %br
+            %hr                
+            .row
+              .col-md-12 
+                %h3 Ultimas reservas registradas
+                %br
+                %table.table.table-striped
+                  %thead
+                    %tr
+                      %th Id
+                      %th Recurso
+                      %th Tiempo Reserva
+                      %th Status
+                      %th Creado
+
+                  %tbody
 
 
-          = link_to 'Agendar', new_schedule_path, class: "btn btn-warning" 
 
-          %table.table.table-striped
-            %thead
-              %tr
-                %th Origen
-                %th Id
-                %th Estado
-                %th Fecha Creación
-                %th Inicio
-                %th Fin
-                %th Email
-                %th Telefono
-                %th Recurso
-                %th
-                %th
-                %th
-
-            %tbody
-              - @schedules.each do |schedule|
-                %tr
-                  %td= schedule.rol
-                  %td= schedule.reservation_id
-                  %td= schedule.status
-                  %td= schedule.creation_time.strftime('%d-%m-%Y %I:%M')
-                  %td= schedule.start_time.strftime('%d-%m-%Y %I:%M')
-                  %td= schedule.end_time.strftime('%d-%m-%Y %I:%M')
-                  %td= schedule.email
-                  %td= schedule.mobile_number
-                  %td= schedule.name
-
-
-/ %h1 Listing schedules
-
-/ %table
-/   %thead
-/     %tr
-/       %th Id centro
-/       %th Rol
-/       %th Reservation
-/       %th Status
-/       %th Creation time
-/       %th Quantity
-/       %th Start time
-/       %th End time
-/       %th User notes
-/       %th Custom color
-/       %th Night reservation
-/       %th Currency
-/       %th First name
-/       %th Last name
-/       %th Login
-/       %th User
-/       %th Email
-/       %th Mobile number
-/       %th Mobile country code
-/       %th Phone
-/       %th Phone country code
-/       %th Zip
-/       %th Country
-/       %th Address
-/       %th State
-/       %th City
-/       %th Resource
-/       %th Name
-/       %th
-/       %th
-/       %th
-
-/   %tbody
-/     - @schedules.each do |schedule|
-/       %tr
-/         %td= schedule.id_centro
-/         %td= schedule.rol
-/         %td= schedule.reservation_id
-/         %td= schedule.status
-/         %td= schedule.creation_time
-/         %td= schedule.quantity
-/         %td= schedule.start_time
-/         %td= schedule.end_time
-/         %td= schedule.user_notes
-/         %td= schedule.custom_color
-/         %td= schedule.night_reservation
-/         %td= schedule.currency
-/         %td= schedule.first_name
-/         %td= schedule.last_name
-/         %td= schedule.login
-/         %td= schedule.user_id
-/         %td= schedule.email
-/         %td= schedule.mobile_number
-/         %td= schedule.mobile_country_code
-/         %td= schedule.phone
-/         %td= schedule.phone_country_code
-/         %td= schedule.zip
-/         %td= schedule.country
-/         %td= schedule.address
-/         %td= schedule.state
-/         %td= schedule.city
-/         %td= schedule.resource_id
-/         %td= schedule.name
-/         %td= link_to 'Show', schedule
-/         %td= link_to 'Edit', edit_schedule_path(schedule)
-/         %td= link_to 'Destroy', schedule, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-/ %br
-
-/ = link_to 'New Schedule', new_schedule_path
+$(document).switchFunction();
+:javascript
+  function switchFunction() {
+      var x = document.getElementById("mesDIV");
+      var y = document.getElementById("diaDIV");
+      if (x.style.display === "none") {
+          x.style.display = "block";
+          y.style.display = "none";
+      } else {
+          x.style.display = "none";
+          y.style.display = "block";
+      }
+      
+  }

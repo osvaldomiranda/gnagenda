@@ -35,9 +35,24 @@
           <ul class="dropdown-menu">
             <li>
               <%= link_to schedules_path  do %>
-                <span class="iconos"><i class="fa fa-user fa-fw"></i></span>Interfaz de programación
+                <span class="iconos"><i class="fa fa-user fa-fw"></i></span>Tablero
               <% end %>
-            </li>          
+            </li>      
+            <li>
+              <%= link_to programing_schedules_path  do %>
+                <span class="iconos"><i class="fa fa-user fa-fw"></i></span>Programa
+              <% end %>
+            </li> 
+            <li>
+              <%= link_to list_schedules_path  do %>
+                <span class="iconos"><i class="fa fa-user fa-fw"></i></span>Reservas
+              <% end %>
+            </li>   
+            <li>
+              <%= link_to clients_path  do %>
+                <span class="iconos"><i class="fa fa-user fa-fw"></i></span>Clientes
+              <% end %>
+            </li>       
           </ul>
         </li>
 

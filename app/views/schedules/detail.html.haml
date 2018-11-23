@@ -1,0 +1,133 @@
+.container{:role => "main"}
+  .col-md-12
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title= "Reserva: #{@schedule.reservation_id}"
+      .panel-body
+        .scroll-panel
+          .row
+            .col-md-4.text-left
+              %h3 Detalle Reserva
+          .row
+            .col-md-2.text-right
+              %p
+                %b Id Reserva:
+            .col-md-4.text-left
+              %p    
+                = @schedule.reservation_id
+          .row
+            .col-md-2.text-right     
+              %p
+                %b Recurso:
+            .col-md-4.text-left
+              %p 
+                = @schedule.name
+          .row
+            .col-md-2.text-right
+              %p
+                %b Duración:
+            .col-md-4.text-left
+              %p 
+                = @schedule.duration
+          .row
+            .col-md-2.text-right
+              %p
+                %b Creado:
+            .col-md-4.text-left
+              %p 
+                = @schedule.creation_time
+          .row
+            .col-md-2.text-right  
+              %p
+                %b Status:
+            .col-md-4.text-left
+              %p 
+                = @schedule.status
+          .row
+            .col-md-2.text-right
+              %p
+                %b Genero:
+            .col-md-4.text-left
+              %p 
+                = @schedule.gender
+          .row
+            .col-md-2.text-right
+              %p
+                %b Notas:
+            .col-md-10.text-left
+              %p 
+                = @schedule.user_notes
+          .row
+            .col-md-2.text-right        
+              %p
+                %b Primer Nombre:
+            .col-md-4.text-left
+              %p 
+                = @schedule.first_name
+          .row
+            .col-md-2.text-right  
+              %p
+                %b Apellido:
+            .col-md-4.text-left
+              %p 
+                = @schedule.last_name
+          .row
+            .col-md-2.text-right  
+              %p
+                %b Correo Electrónico:
+            .col-md-4.text-left
+              %p 
+                = @schedule.email
+          .row
+            .col-md-2.text-right
+              %p
+                %b Dirección:
+            .col-md-4.text-left
+              %p 
+                = @schedule.address
+          .row
+            .col-md-2.text-right
+              %p
+                %b Ciudad:
+            .col-md-4.text-left
+              %p 
+                = @schedule.city
+          .row
+            .col-md-2.text-right
+              %p
+                %b Teléfono:
+            .col-md-4.text-left
+              %p 
+                = @schedule.mobile_number
+          %br
+          %hr
+          .row
+            .col-md-2  
+            .col-md-2.text-center
+              =link_to 'Anular Confirmación', "/",class: "btn btn-primary"
+            .col-md-2.text-center
+              =link_to 'Cancelar', "/",class: "btn btn-primary"
+            .col-md-2.text-center
+              =link_to 'Cancelación Directa', "/",class: "btn btn-primary"
+            .col-md-2.text-center
+              =link_to 'Pre Aprobar', "/",class: "btn btn-primary"
+          %br
+          %br    
+          %hr    
+          .row
+            .col-md-4
+              %h3 Notas enviadas
+          %br
+          %br    
+          %hr 
+          .row
+            .col-md-4
+              %h3 Registro de eventos
+          %br
+          %br    
+          %hr 
+          .row
+            .col-md-4
+              %h3 Notas Administrativas
+
+
