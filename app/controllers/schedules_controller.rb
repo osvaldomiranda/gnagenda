@@ -1,4 +1,5 @@
 class SchedulesController < ApplicationController
+  before_filter :authenticate_user! 
   before_action :set_schedule, only: [:show, :edit, :update, :destroy, :detail]
 
   respond_to :html
@@ -16,13 +17,25 @@ class SchedulesController < ApplicationController
   end
 
   def list
+    @service_id = params[:service] || nil
+
+    @service = @service_id.present? ? Service.where(id: @service_id).first.name : nil
+
+    puts "******************"
+    puts @service_id
+    puts @service
+    puts "******************"
+
+    date_last = nil
+    date_next = nil
+
     @date = params[:date].present? ? Date.parse(params[:date]) : Date.today
-    @schedules = Schedule.all
+    @schedules = Schedule.with_service(@service_id)
     respond_with(@schedules)
   end
 
   def programing
-    @events =  Schedule.all.map{|s| {id: s.id, title: "#{s.first_name} #{s.last_name}", start: s.start_time.strftime('%d-%m-%Y %H:%M:00'), end: s.end_time.strftime('%d-%m-%Y %H:%M:00'), resourceId: s.name}}
+    @events =  Schedule.all.order(:start_time).map{|s| {id: s.id, title: "#{s.first_name} #{s.last_name}", start: s.start_time.strftime('%Y-%m-%d %H:%M:00'), end: s.end_time.strftime('%Y-%m-%d %H:%M:00'), resourceId: s.name}}
   end
 
   def show
@@ -34,6 +47,7 @@ class SchedulesController < ApplicationController
   end
 
   def new
+    @id_centro = 24
     @schedules = Schedule.all
     @tipos = Service.all
     @date = params[:date].present? ? Date.parse(params[:date]) : Date.today
@@ -49,6 +63,21 @@ class SchedulesController < ApplicationController
   end
 
   def create
+    
+    @id_centro = 24
+    @tipos = Service.all
+    @date = params[:date].present? ? Date.parse(params[:date]) : Date.today
+    @schedules = Schedule.where(start_time: @date.beginning_of_day..@date.end_of_day).order(:start_time)
+    @hoy = 0
+    @ayer = 0
+    @ultimos7 = 0
+
+    puts "****************"
+    puts schedule_params[:name]
+    puts "****************"
+
+    
+
     @schedule = Schedule.new(schedule_params)
     @schedule.save
     respond_with(@schedule)
@@ -115,6 +144,9 @@ class SchedulesController < ApplicationController
     end
 
     def schedule_params
-      params.require(:schedule).permit(:id_centro, :rol, :reservation_id, :status, :creation_time, :quantity, :start_time, :end_time, :user_notes, :custom_color, :night_reservation, :currency, :first_name, :last_name, :login, :user_id, :email, :mobile_number, :mobile_country_code, :phone, :phone_country_code, :zip, :country, :address, :state, :city, :resource_id, :name)
+      params.require(:schedule).permit(:id_centro, :rol, :reservation_id, :status, :creation_time, :quantity, :start_time, :end_time, :user_notes, :custom_color, :night_reservation, :currency, :first_name, :last_name, :login, :user_id, :email, :mobile_number, :mobile_country_code, :phone, :phone_country_code, :zip, :country, :address, :state, :city, :resource_id, :name, :nameresource, :fecha, :hora, :duration, :reminder, :age, :gender, :nationality, :origin, :rut, :service_id, :duration_id)
+    
+    
+
     end
 end

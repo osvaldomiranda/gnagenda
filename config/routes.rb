@@ -1,6 +1,8 @@
 GnAgenda::Application.routes.draw do
 
-  resources :services
+  
+  resources :durations
+
   resources :notification_schedules
   resources :clients
   resources :notifications
@@ -12,7 +14,7 @@ GnAgenda::Application.routes.draw do
   resources :kinesiologists
   resources :centers
 
-  root to: "home#index"
+  root to: "schedules#programing"
   get "home/index"
 
 
@@ -29,6 +31,12 @@ GnAgenda::Application.routes.draw do
       get :detail
     end
   end
+
+  resources :services do
+    collection do
+      get :duration
+    end
+  end    
 
   
   namespace :api, defaults: { format: 'json' } do

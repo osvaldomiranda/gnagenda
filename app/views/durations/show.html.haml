@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @duration.name
+%p
+  %b Duration:
+  = @duration.duration
+%p
+  %b Service:
+  = @duration.service
+
+= link_to 'Edit', edit_duration_path(@duration)
+\|
+= link_to 'Back', durations_path

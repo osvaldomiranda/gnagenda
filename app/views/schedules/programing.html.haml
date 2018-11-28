@@ -17,6 +17,11 @@
 :javascript
   $('#calendar').fullCalendar({
    schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
+    height: 500,
+
+    editable: true,
+    eventLimit: true, // when too many events in a day, show the popover
+    events: 'https://fullcalendar.io/demo-events.json?overload-day',
 
   allDaySlot: false,
   slotDuration: "00:15:00",
@@ -24,18 +29,10 @@
   maxTime: "20:30:00",
   defaultView: 'agendaDay',
  
-  eventRender: function(eventObj, $el) {
-    $el.popover({
-      title: eventObj.title,
-      content: eventObj.start.format('DD-MM-YYYY HH:m'),
-      trigger: 'hover',
-      placement: 'top',
-      container: 'body'
-    });
-  },
+
 
   eventClick: function(calEvent, jsEvent, view) {
-    window.location.href = "http://localhost:3000/schedules/"+calEvent.id+"/detail" ;
+    window.location.href = "/schedules/"+calEvent.id+"/detail" ;
   },
 
 

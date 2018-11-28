@@ -1,36 +1,72 @@
-%p#notice= notice
+.container{:role => "main"}
+  .col-md-12
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title Clientes
+      .panel-body
+        %h1 Clientes
+        %hr  
+        .row
+          .col-md-12
+            %p#notice= notice
 
-%p
-  %b Rut:
-  = @client.rut
-%p
-  %b First name:
-  = @client.first_name
-%p
-  %b Last name:
-  = @client.last_name
-%p
-  %b Email:
-  = @client.email
-%p
-  %b Celphone:
-  = @client.celphone
-%p
-  %b Age:
-  = @client.age
-%p
-  %b Gender:
-  = @client.gender
-%p
-  %b Citizenship:
-  = @client.citizenship
-%p
-  %b Origin:
-  = @client.origin
-%p
-  %b State:
-  = @client.state
+            %p
+              %b Rut:
+              = @client.rut
+            %p
+              %b Nombre:
+              = @client.first_name
+            %p
+              %b Apellido:
+              = @client.last_name
+            %p
+              %b Email:
+              = @client.email
+            %p
+              %b Celular:
+              = @client.celphone
+            %p
+              %b Edad:
+              = @client.age
+            %p
+              %b Genero:
+              = @client.gender
+            %p
+              %b Nacionalidad:
+              = @client.citizenship
+            %p
+              %b Origen:
+              = @client.origin
+            %p
+              %b Estado:
+              = @client.state
+        %br
+        %br      
+        %hr  
+        .row
+          .col-md-12
+            %h3 Reservas del Cliente
+        .row
+          .col-md-12
 
-= link_to 'Edit', edit_client_path(@client)
-\|
-= link_to 'Back', clients_path
+            %table.table.table-striped
+              %thead
+                %tr
+                  %th Id
+                  %th Recurso
+                  %th Fecha
+                  %th Status
+                  %th Creado
+
+
+              %tbody
+                - @client.schedules.each do |schedule|
+                  %tr
+                    %td= link_to schedule.id, detail_schedule_path(schedule.id)
+                    %td= schedule.name
+                    %td= "#{schedule.first_name} #{schedule.last_name}" 
+                    %td= schedule.email
+                    %td= schedule.start_time.strftime('%Y-%m-%d')
+                    %td= schedule.status
+                    %td= schedule.created_at.strftime('%Y-%m-%d')
+

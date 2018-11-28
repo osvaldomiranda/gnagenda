@@ -1,0 +1,10 @@
+= simple_form_for(@duration) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name
+    = f.input :duration
+    = f.association :service
+
+  .form-actions
+    = f.button :submit

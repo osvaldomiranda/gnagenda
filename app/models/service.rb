@@ -1,6 +1,7 @@
 class Service < ActiveRecord::Base
   has_many :resources
 
+
   def self.for_select
     Service.all.order(name: :asc).map {|t| [t.name, t.id]}
   end

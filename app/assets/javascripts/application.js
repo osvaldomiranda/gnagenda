@@ -12,11 +12,12 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
 //= require turbolinks
 //= require calendar
 //= require Chart.bundle
 //= require chartkick
-
+//= require datepicker
 
 //= require_tree .
 

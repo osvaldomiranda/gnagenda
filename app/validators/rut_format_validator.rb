@@ -1,6 +1,5 @@
 class RutFormatValidator < ActiveModel::EachValidator
   def validate_each(object, attribute, value)
-
     if value.present?
 
       value = value.gsub('.','')
@@ -30,7 +29,9 @@ class RutFormatValidator < ActiveModel::EachValidator
 
       unless dvc == dv.upcase 
         object.errors[attribute] << (options[:message] || "Incorrecto")
-      end  
+      end
+    else
+        object.errors[attribute] << (options[:message] || "Run no puede estar en blanco")  
     end    
   end
 end

@@ -52,7 +52,7 @@
           %tbody
             - @clients.each do |client|
               %tr
-                %td= client.rut
+                %td= link_to client.rut, client  
                 %td= client.first_name
                 %td= client.last_name
                 %td= client.email
@@ -62,7 +62,7 @@
                 %td= client.citizenship
                 %td= client.origin
                 %td= client.state
-                %td= link_to 'Mostrar', client
+                / %td= link_to 'Mostrar', client
                 / %td= link_to 'Editar', edit_client_path(client)
                 %td= link_to 'Eliminar', client, :method => :delete, :data => { :confirm => 'Are you sure?' }
 

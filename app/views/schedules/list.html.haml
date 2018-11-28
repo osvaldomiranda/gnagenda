@@ -4,13 +4,22 @@
       .panel-heading
         %h3.panel-title Reservas
       .panel-body
-        %h1 Reservas
-        %hr  
+        %h1 
+          Reservas
+          %span.badge= @schedules.count
+        %br
+
         .row
           .col-md-12
             .form-inline
-              = label_tag :filter_mostrar, 'Filtrar por recuerso'
-              = select_tag :filter_mostrar, options_for_select(Service.for_select, @status), prompt: 'Todos', class: "form-control" 
+              = label_tag :filter_list, 'Filtrar por'
+              = select_tag :filter_list, options_for_select(Schedule.list_for_select, @list), prompt: 'Todos', class: "form-control" 
+        %br      
+        .row
+          .col-md-12
+            .form-inline
+              = label_tag :filter_service, 'Filtrar por recuerso'
+              = select_tag :filter_service, options_for_select(Service.for_select, @service_id), prompt: 'Todos', class: "form-control" 
         %br
         %hr      
         %br

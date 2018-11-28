@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181114155608) do
+ActiveRecord::Schema.define(version: 20181128001242) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,16 @@ ActiveRecord::Schema.define(version: 20181114155608) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "durations", force: true do |t|
+    t.string   "name"
+    t.integer  "duration"
+    t.integer  "service_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "durations", ["service_id"], name: "index_durations_on_service_id", using: :btree
 
   create_table "kinesiologists", force: true do |t|
     t.integer  "id_centro"
@@ -165,7 +175,12 @@ ActiveRecord::Schema.define(version: 20181114155608) do
     t.string   "nationality"
     t.string   "origin"
     t.string   "rut"
+    t.integer  "service_id"
+    t.integer  "duration_id"
   end
+
+  add_index "schedules", ["duration_id"], name: "index_schedules_on_duration_id", using: :btree
+  add_index "schedules", ["service_id"], name: "index_schedules_on_service_id", using: :btree
 
   create_table "services", force: true do |t|
     t.string   "name"
