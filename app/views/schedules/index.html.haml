@@ -133,17 +133,30 @@
             .row
               .col-md-12 
                 %h3 Próximas Reservas
-                %br
+                %br      
                 %table.table.table-striped
                   %thead
                     %tr
                       %th Id
                       %th Recurso
-                      %th Tiempo Reserva
+                      %th Cliente
+                      %th Email
+                      %th Fecha
                       %th Status
                       %th Creado
 
+
                   %tbody
+                    - @nextSchedules.each do |schedule|
+                      %tr
+                        %td= link_to schedule.id, detail_schedule_path(schedule.id)
+                        %td= schedule.name
+                        %td= "#{schedule.first_name} #{schedule.last_name}" 
+                        %td= schedule.email
+                        %td= schedule.start_time.strftime('%Y-%m-%d')
+                        %td= schedule.status
+                        %td= schedule.created_at.strftime('%Y-%m-%d')
+
 
             %br
             %hr                
@@ -156,11 +169,23 @@
                     %tr
                       %th Id
                       %th Recurso
-                      %th Tiempo Reserva
+                      %th Cliente
+                      %th Email
+                      %th Fecha
                       %th Status
                       %th Creado
 
+
                   %tbody
+                    - @lastSchedules.each do |schedule|
+                      %tr
+                        %td= link_to schedule.id, detail_schedule_path(schedule.id)
+                        %td= schedule.name
+                        %td= "#{schedule.first_name} #{schedule.last_name}" 
+                        %td= schedule.email
+                        %td= schedule.start_time.strftime('%Y-%m-%d')
+                        %td= schedule.status
+                        %td= schedule.created_at.strftime('%Y-%m-%d')
 
 
 :javascript

@@ -5,13 +5,22 @@ class SchedulesController < ApplicationController
   respond_to :html
 
   def index
+    # Tablero
+
     @id_centro = 24
     @tipos = Service.all
     @date = params[:date].present? ? Date.parse(params[:date]) : Date.today
     @schedules = Schedule.where(start_time: @date.beginning_of_day..@date.end_of_day).order(:start_time)
-    @hoy = 0
-    @ayer = 0
-    @ultimos7 = 0
+    
+    dateHoy = Date.today
+    dateAyer = Date.yesterday
+
+    @hoy = Schedule.where(created_at: dateHoy.beginning_of_day..dateHoy.end_of_day).count
+    @ayer = Schedule.where(created_at: dateAyer.beginning_of_day..dateAyer.end_of_day).count
+    @ultimos7 = Schedule.where(created_at: 7.day.ago.beginning_of_day..dateHoy.end_of_day).count
+
+    @lastSchedules = Schedule.where(created_at: 2.day.ago.beginning_of_day..dateHoy.end_of_day)
+    @nextSchedules = Schedule.where("start_time > ?", DateTime.now)
 
     respond_with(@schedules)
   end
@@ -21,16 +30,11 @@ class SchedulesController < ApplicationController
 
     @service = @service_id.present? ? Service.where(id: @service_id).first.name : nil
 
-    puts "******************"
-    puts @service_id
-    puts @service
-    puts "******************"
-
     date_last = nil
     date_next = nil
 
     @date = params[:date].present? ? Date.parse(params[:date]) : Date.today
-    @schedules = Schedule.with_service(@service_id)
+    @schedules = Schedule.with_service(@service_id).paginate(:page => params[:page], :per_page => 30)
     respond_with(@schedules)
   end
 
@@ -62,25 +66,12 @@ class SchedulesController < ApplicationController
     @date = params[:date].present? ? Date.parse(params[:date]) : Date.today
   end
 
-  def create
-    
-    @id_centro = 24
-    @tipos = Service.all
-    @date = params[:date].present? ? Date.parse(params[:date]) : Date.today
-    @schedules = Schedule.where(start_time: @date.beginning_of_day..@date.end_of_day).order(:start_time)
-    @hoy = 0
-    @ayer = 0
-    @ultimos7 = 0
-
-    puts "****************"
-    puts schedule_params[:name]
-    puts "****************"
-
-    
+  def create    
+    @events =  Schedule.all.order(:start_time).map{|s| {id: s.id, title: "#{s.first_name} #{s.last_name}", start: s.start_time.strftime('%Y-%m-%d %H:%M:00'), end: s.end_time.strftime('%Y-%m-%d %H:%M:00'), resourceId: s.name}}
 
     @schedule = Schedule.new(schedule_params)
     @schedule.save
-    respond_with(@schedule)
+    redirect_to programing_schedules_path
   end
 
   def update

@@ -5,7 +5,15 @@ class ClientsController < ApplicationController
   respond_to :html
 
   def index
-    @clients = Client.all
+    if params["/clients"].present?
+      nombre = params["/clients"][:nombre] || nil
+      apellido = params["/clients"][:apellido] || nil
+      email = params["/clients"][:emol] || nil
+      reserva = params["/clients"][:reserva] || nil
+    end
+
+
+    @clients = Client.with_reserva(reserva).with_apellido(apellido).with_nombre(nombre).with_email(email).paginate(:page => params[:page], :per_page => 30)
     respond_with(@clients)
   end
 

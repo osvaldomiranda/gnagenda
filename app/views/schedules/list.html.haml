@@ -8,7 +8,6 @@
           Reservas
           %span.badge= @schedules.count
         %br
-
         .row
           .col-md-12
             .form-inline
@@ -23,8 +22,9 @@
         %br
         %hr      
         %br
+        .digg_pagination
+          = will_paginate @schedules, previous_label: h("<  "), next_label: h("  >")
         %br        
-
         %table.table.table-striped
           %thead
             %tr
@@ -35,8 +35,6 @@
               %th Fecha
               %th Status
               %th Creado
-
-
           %tbody
             - @schedules.each do |schedule|
               %tr

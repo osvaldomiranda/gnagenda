@@ -30,8 +30,9 @@
               .col-sm-4  
                 = f.button :submit, "Buscar",  class: "btn btn-primary"
         %br
-        %br        
-
+        %br            
+        .digg_pagination
+          = will_paginate @clients, previous_label: h("<  "), next_label: h("  >")
         %table.table.table-striped
           %thead
             %tr
